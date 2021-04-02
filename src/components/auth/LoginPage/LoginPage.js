@@ -1,7 +1,9 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+
 import { useAuthContext } from '../context';
 import { login } from '../../../api/auth';
+import LoginForm from './LoginForm';
 
 function LoginPage() {
   const { handleLogin } = useAuthContext();
@@ -9,13 +11,9 @@ function LoginPage() {
   const history = useHistory();
   const [error, setError] = React.useState(null);
 
-  const handleClick = async () => {
+  const handleSubmit = async credentials => {
     try {
-      await login({
-        remember: true,
-        email: 'mail@test.com',
-        password: 'string',
-      });
+      await login(credentials);
       handleLogin();
       const { from } = location.state || { from: { pathname: '/' } };
       history.replace(from);
@@ -26,7 +24,7 @@ function LoginPage() {
 
   return (
     <div>
-      LoginPage <button onClick={handleClick}>Login</button>
+      <LoginForm onSubmit={handleSubmit} />
     </div>
   );
 }
