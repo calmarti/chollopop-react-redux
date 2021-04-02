@@ -1,5 +1,6 @@
 import React from 'react';
 import T from 'prop-types';
+import SelectTags from '../SelectTags';
 
 const canSubmit = ({ name, price, tags }) =>
   [
@@ -80,18 +81,12 @@ function NewAdvertForm({ onSubmit }) {
         value={price}
         onChange={handleChangeNumber}
       />
-      <select
+      <SelectTags
         multiple
         name="tags"
         value={tags}
         onChange={handleChangeSelectMultiple(tags)}
-      >
-        {['lifestyle', 'mobile', 'motor', 'work'].map(tag => (
-          <option key={tag} value={tag}>
-            {tag}
-          </option>
-        ))}
-      </select>
+      />
       <input type="file" name="photo" onChange={handleChangeFile} />
       <button disabled={!canSubmit(advert)}>Save</button>
     </form>

@@ -12,6 +12,10 @@ const castToFormData = ({ name, sale, price, tags, photo }) => {
   return formData;
 };
 
+export const getTags = () => {
+  return client.get(`${advertsPath}/tags`);
+};
+
 export const createAdvert = newAdvert => {
   return client.post(advertsPath, castToFormData(newAdvert));
 };
