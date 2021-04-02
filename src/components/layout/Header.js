@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { AuthButton } from '../auth';
 
 const isExact = match => match && match.isExact;
 
@@ -26,6 +27,7 @@ function Header() {
           </li>
         </ul>
       </nav>
+      <AuthButton />
     </header>
   );
 }

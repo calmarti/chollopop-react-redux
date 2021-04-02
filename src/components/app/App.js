@@ -1,35 +1,55 @@
+import React from 'react';
+import T from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { AdvertPage, AdvertsPage, NewAdvertPage } from '../adverts';
-import { LoginPage } from '../auth';
+import { LoginPage, PrivateRoute } from '../auth';
+import { AuthProvider } from '../auth/context';
 import NotFoundPage from './NotFoundPage';
 
-function App() {
+function App({ isInitiallyLogged }) {
+  const [isLogged, setIsLogged] = React.useState(isInitiallyLogged);
+
+  const handleLogin = () => setIsLogged(true);
+  const handleLogout = () => setIsLogged(false);
+
+  const authProps = { isLogged, handleLogin, handleLogout };
+
   return (
-    <Switch>
-      <Route exact path="/adverts/new">
-        <NewAdvertPage />
-      </Route>
-      <Route exact path="/adverts/:advertId">
-        <AdvertPage />
-      </Route>
-      <Route exact path="/adverts">
-        <AdvertsPage />
-      </Route>
-      <Route exact path="/login">
-        <LoginPage />
-      </Route>
-      <Route exact path="/404">
-        <NotFoundPage />
-      </Route>
-      <Route exact path="/">
-        <Redirect to="/adverts" />
-      </Route>
-      <Route>
-        <Redirect to="/404" />
-      </Route>
-    </Switch>
+    <AuthProvider {...authProps}>
+      <Switch>
+        <PrivateRoute exact path="/adverts/new">
+          <NewAdvertPage />
+        </PrivateRoute>
+        <PrivateRoute exact path="/adverts/:advertId">
+          <AdvertPage />
+        </PrivateRoute>
+        <PrivateRoute exact path="/adverts">
+          <AdvertsPage />
+        </PrivateRoute>
+        <Route exact path="/login">
+          <LoginPage />
+        </Route>
+        <Route exact path="/404">
+          <NotFoundPage />
+        </Route>
+        <Route exact path="/">
+          <Redirect to="/adverts" />
+        </Route>
+        <Route>
+          <Redirect to="/404" />
+        </Route>
+      </Switch>
+    </AuthProvider>
   );
 }
+
+App.propTypes = {
+  isInitiallyLogged: T.bool,
+};
+
+App.defaultProps = {
+  isInitiallyLogged: false,
+};
 
 export default App;
