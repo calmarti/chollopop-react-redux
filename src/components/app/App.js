@@ -36,9 +36,7 @@ function App({ isInitiallyLogged }) {
         <Route exact path="/">
           <Redirect to="/adverts" />
         </Route>
-        <Route>
-          <Redirect to="/404" />
-        </Route>
+        <Redirect to="/404" />
       </Switch>
     </AuthProvider>
   );

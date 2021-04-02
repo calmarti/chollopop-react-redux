@@ -1,16 +1,14 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, useLocation } from 'react-router-dom';
 import { useAuthContext } from '../context';
 
 const PrivateRoute = props => {
   const { isLogged } = useAuthContext();
+  const location = useLocation();
+
   return isLogged ? (
     <Route {...props} />
   ) : (
-    <Route>
-      {({ location }) => (
-        <Redirect to={{ pathname: '/login', state: { from: location } }} />
-      )}
-    </Route>
+    <Redirect to={{ pathname: '/login', state: { from: location } }} />
   );
 };
 

@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../context';
 
+import { logout } from '../../../api/auth';
+
 const AuthButton = () => {
   const { isLogged, handleLogout } = useAuthContext();
 
-  const handleClick = () => {
-    handleLogout();
+  const handleClick = async () => {
+    try {
+      await logout();
+      handleLogout();
+    } catch (error) {}
   };
 
   return isLogged ? (
