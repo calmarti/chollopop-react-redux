@@ -1,19 +1,15 @@
-import React from 'react';
 import T from 'prop-types';
+
+import useForm from '../../../hooks/useForm';
 import SelectTags from '../SelectTags';
 
-const canSubmit = ({ name, price, tags }) =>
-  [
-    // valid name
-    !!name,
-    // valid price
-    !Number.isNaN(price) && Number.isFinite(price) && price >= 0,
-    // valid tags
-    !!tags.length,
-  ].every(validation => validation); // all validations pass
+const validName = ({ name }) => name;
+const validPrice = ({ price }) =>
+  !Number.isNaN(price) && Number.isFinite(price) && price >= 0;
+const validTags = ({ tags }) => !!tags.length;
 
 function NewAdvertForm({ onSubmit }) {
-  const [advert, setAdvert] = React.useState({
+  const { formValue: advert, handleChange, handleSubmit, validate } = useForm({
     name: '',
     sale: true,
     price: 0,
@@ -22,52 +18,8 @@ function NewAdvertForm({ onSubmit }) {
   });
   const { name, sale, price, tags } = advert;
 
-  const handleChange = ev => {
-    setAdvert(oldAdvert => ({
-      ...oldAdvert,
-      [ev.target.name]:
-        ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value,
-    }));
-  };
-
-  const handleChangeNumber = ev => {
-    handleChange({
-      target: {
-        name: ev.target.name,
-        value: Number(ev.target.value),
-      },
-    });
-  };
-
-  const handleChangeSelectMultiple = values => ev => {
-    const selectedValue = ev.target.value;
-    handleChange({
-      target: {
-        name: ev.target.name,
-        value: values.includes(selectedValue)
-          ? values.filter(tag => tag !== selectedValue)
-          : [...values, selectedValue],
-      },
-    });
-  };
-
-  const handleChangeFile = ev => {
-    const file = ev.target.files[0] || null;
-    handleChange({
-      target: {
-        name: ev.target.name,
-        value: file,
-      },
-    });
-  };
-
-  const handleSubmit = ev => {
-    ev.preventDefault();
-    onSubmit(advert);
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <input name="name" value={name} onChange={handleChange} />
       <input
         type="checkbox"
@@ -75,20 +27,12 @@ function NewAdvertForm({ onSubmit }) {
         checked={sale}
         onChange={handleChange}
       />
-      <input
-        type="number"
-        name="price"
-        value={price}
-        onChange={handleChangeNumber}
-      />
-      <SelectTags
-        multiple
-        name="tags"
-        value={tags}
-        onChange={handleChangeSelectMultiple(tags)}
-      />
-      <input type="file" name="photo" onChange={handleChangeFile} />
-      <button disabled={!canSubmit(advert)}>Save</button>
+      <input type="number" name="price" value={price} onChange={handleChange} />
+      <SelectTags multiple name="tags" value={tags} onChange={handleChange} />
+      <input type="file" name="photo" onChange={handleChange} />
+      <button disabled={!validate(validName, validPrice, validTags)}>
+        Save
+      </button>
     </form>
   );
 }

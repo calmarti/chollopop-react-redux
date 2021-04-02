@@ -7,7 +7,7 @@ const castToFormData = ({ name, sale, price, tags, photo }) => {
   formData.append('name', name);
   formData.append('sale', sale);
   formData.append('price', price);
-  tags.forEach((tag, index) => formData.append(`tags[${index}]`, tag));
+  formData.append('tags', tags);
   if (photo) formData.append('photo', photo);
   return formData;
 };
