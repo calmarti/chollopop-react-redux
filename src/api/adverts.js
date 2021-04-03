@@ -1,16 +1,7 @@
 import client from './client';
+import { withFormData } from '../utils/converters';
 
 const advertsPath = '/api/v1/adverts';
-
-const castToFormData = ({ name, sale, price, tags, photo }) => {
-  const formData = new FormData();
-  formData.append('name', name);
-  formData.append('sale', sale);
-  formData.append('price', price);
-  formData.append('tags', tags);
-  if (photo) formData.append('photo', photo);
-  return formData;
-};
 
 const mapAdvert = ({ photo, ...advert }) => ({
   ...advert,
@@ -33,6 +24,6 @@ export const deleteAdvert = advertId => {
   return client.delete(`${advertsPath}/${advertId}`);
 };
 
-export const createAdvert = newAdvert => {
-  return client.post(advertsPath, castToFormData(newAdvert));
-};
+export const createAdvert = withFormData(newAdvert => {
+  return client.post(advertsPath, newAdvert);
+});
