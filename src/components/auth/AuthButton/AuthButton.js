@@ -1,20 +1,24 @@
 import { Link } from 'react-router-dom';
-import { useAuthContext } from '../context';
 
+import { ConfirmationButton } from '../../shared';
+import { useAuthContext } from '../context';
 import { logout } from '../../../api/auth';
 
 const AuthButton = () => {
   const { isLogged, handleLogout } = useAuthContext();
 
-  const handleClick = async () => {
-    try {
-      await logout();
-      handleLogout();
-    } catch (error) {}
+  const handleLogoutConfirm = async () => {
+    await logout();
+    handleLogout();
   };
 
   return isLogged ? (
-    <button onClick={handleClick}>Logout</button>
+    <ConfirmationButton
+      confirmation="Are you sure?"
+      onConfirm={handleLogoutConfirm}
+    >
+      Logout
+    </ConfirmationButton>
   ) : (
     <Link to="/login">Login</Link>
   );

@@ -3,6 +3,7 @@ import { Redirect, useParams, useHistory } from 'react-router-dom';
 
 import { getAdvert, deleteAdvert } from '../../../api/adverts';
 import Layout from '../../layout';
+import { ConfirmationButton } from '../../shared';
 
 function AdvertPage() {
   const { advertId } = useParams();
@@ -14,7 +15,7 @@ function AdvertPage() {
     getAdvert(advertId).then(setAdvert).catch(setError);
   }, [advertId]);
 
-  const handleClick = () => {
+  const handleDeleteConfirm = () => {
     deleteAdvert(advertId)
       .then(() => history.push('/'))
       .catch(setError);
@@ -30,7 +31,15 @@ function AdvertPage() {
 
   return (
     <Layout>
-      <div onClick={handleClick}>{JSON.stringify(advert)}</div>
+      <div>
+        {JSON.stringify(advert)}
+        <ConfirmationButton
+          confirmation="Are you sure?"
+          onConfirm={handleDeleteConfirm}
+        >
+          Delete
+        </ConfirmationButton>
+      </div>
     </Layout>
   );
 }
