@@ -3,6 +3,7 @@ import T from 'prop-types';
 
 import { ConfirmationButton } from '../../shared';
 import placeholder from '../../../assets/images/placeholder.png';
+import { advert } from '../propTypes';
 
 function AdvertDetail({ name, sale, price, tags, photo, onDelete }) {
   return (
@@ -26,10 +27,7 @@ function AdvertDetail({ name, sale, price, tags, photo, onDelete }) {
 }
 
 AdvertDetail.propTypes = {
-  name: T.string.isRequired,
-  sale: T.bool.isRequired,
-  price: T.number.isRequired,
-  tags: T.arrayOf(T.string.isRequired).isRequired,
+  ...advert,
   photo: T.string,
   onDelete: T.func.isRequired,
 };
