@@ -1,13 +1,13 @@
 export const saleFilter = {
-  all: 'all',
-  sell: 'sell',
-  buy: 'buy',
+  all: { value: 'all', label: 'All' },
+  sell: { value: 'sell', label: 'Sell' },
+  buy: { value: 'buy', label: 'Buy' },
 };
 
 export const defaultFilters = {
   name: '',
   price: [],
-  sale: saleFilter.all,
+  sale: saleFilter.all.value,
   tags: [],
 };
 
@@ -22,21 +22,21 @@ const filterByPrice = filter => ({ price }) => {
   if (!max) {
     return price >= min;
   }
-  return max >= price >= min;
+  return price >= min && price <= max;
 };
 
 const filterBySale = filter => ({ sale }) =>
-  [saleFilter.all, sale ? saleFilter.sell : saleFilter.buy].includes(filter);
+  [
+    saleFilter.all.value,
+    sale ? saleFilter.sell.value : saleFilter.buy.value,
+  ].includes(filter);
 
 const filterByTags = filter => ({ tags }) =>
   !filter.length || filter.every(tag => tags.includes(tag));
 
-export const filterAdverts = (adverts, filters) =>
+export const filterAdverts = (adverts, { name, price, sale, tags }) =>
   adverts
-    .filter(filterByName(filters.name))
-    .filter(filterByPrice(filters.price))
-    .filter(filterBySale(filters.sale))
-    .filter(filterByTags(filters.tags));
-
-export const isFiltered = filters =>
-  JSON.stringify(filters) !== JSON.stringify(defaultFilters);
+    .filter(filterByName(name))
+    .filter(filterByPrice(price))
+    .filter(filterBySale(sale))
+    .filter(filterByTags(tags));

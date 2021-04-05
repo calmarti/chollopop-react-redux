@@ -3,10 +3,10 @@ import T from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
-function EmptyList({ isFiltered }) {
+function EmptyList({ advertsCount }) {
   return (
     <div>
-      {isFiltered ? (
+      {advertsCount > 0 ? (
         'Refine your search'
       ) : (
         <Link to="/adverts/new">Create the first advert</Link>
@@ -16,11 +16,7 @@ function EmptyList({ isFiltered }) {
 }
 
 EmptyList.propTypes = {
-  isFiltered: T.bool,
-};
-
-EmptyList.defaultProps = {
-  isFiltered: false,
+  advertsCount: T.number.isRequired,
 };
 
 export default EmptyList;

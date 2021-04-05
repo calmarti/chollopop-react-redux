@@ -38,6 +38,7 @@ function useForm(initialFormValue) {
 
   return {
     formValue,
+    setFormValue,
     handleChange,
     handleSubmit,
     validate,
