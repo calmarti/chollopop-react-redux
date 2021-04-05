@@ -1,6 +1,7 @@
 import T from 'prop-types';
 
 import useForm from '../../../hooks/useForm';
+import { InputFile } from '../../shared';
 import SelectTags from '../SelectTags';
 
 const validName = ({ name }) => name;
@@ -29,7 +30,7 @@ function NewAdvertForm({ onSubmit }) {
       />
       <input type="number" name="price" value={price} onChange={handleChange} />
       <SelectTags multiple name="tags" value={tags} onChange={handleChange} />
-      <input type="file" name="photo" onChange={handleChange} />
+      <InputFile name="photo" onChange={handleChange} />
       <button disabled={!validate(validName, validPrice, validTags)}>
         Save
       </button>
