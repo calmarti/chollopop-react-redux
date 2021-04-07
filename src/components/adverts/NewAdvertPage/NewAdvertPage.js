@@ -2,17 +2,18 @@ import React from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 
 import { createAdvert } from '../../../api/adverts';
+import usePromise from '../../../hooks/usePromise';
 import Layout from '../../layout';
 import NewAdvertForm from './NewAdvertForm';
 
 function NewAdvertPage() {
   const history = useHistory();
-  const [error, setError] = React.useState(null);
+  const { isPending: isLoading, error, execute } = usePromise(null);
 
   const handleSubmit = newAdvert => {
-    createAdvert(newAdvert)
-      .then(({ id }) => history.push(`/adverts/${id}`))
-      .catch(setError);
+    execute(createAdvert(newAdvert)).then(({ id }) =>
+      history.push(`/adverts/${id}`)
+    );
   };
 
   if (error?.statusCode === 401) {

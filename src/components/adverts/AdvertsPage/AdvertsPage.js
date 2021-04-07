@@ -9,13 +9,15 @@ import storage from '../../../utils/storage';
 import useForm from '../../../hooks/useForm';
 import { getAdverts } from '../../../api/adverts';
 import { defaultFilters, filterAdverts } from './filters';
+import usePromise from '../../../hooks/usePromise';
 
 const getFilters = () => storage.get('filters') || defaultFilters;
 const saveFilters = filters => storage.set('filters', filters);
 
 function AdvertsPage() {
-  const [error, setError] = React.useState(null);
-  const [adverts, setAdverts] = React.useState([]);
+  const { isPending: isLoading, error, execute, data: adverts } = usePromise(
+    []
+  );
   const {
     formValue: filters,
     setFormValue: setFilters,
@@ -23,7 +25,7 @@ function AdvertsPage() {
   } = useForm(getFilters);
 
   React.useEffect(() => {
-    getAdverts().then(setAdverts).catch(setError);
+    execute(getAdverts());
   }, []);
 
   React.useEffect(() => {

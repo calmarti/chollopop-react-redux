@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { useAuthContext } from '../context';
+import usePromise from '../../../hooks/usePromise';
 import { login } from '../../../api/auth';
 import LoginForm from './LoginForm';
 
@@ -9,22 +10,26 @@ function LoginPage() {
   const { handleLogin } = useAuthContext();
   const location = useLocation();
   const history = useHistory();
-  const [error, setError] = React.useState(null);
+  const { isPending: isLoading, error, execute, resetError } = usePromise();
 
-  const handleSubmit = async credentials => {
-    try {
-      await login(credentials);
-      handleLogin();
-      const { from } = location.state || { from: { pathname: '/' } };
-      history.replace(from);
-    } catch (error) {
-      setError(error);
-    }
+  const handleSubmit = credentials => {
+    execute(login(credentials))
+      .then(handleLogin)
+      .then(() => {
+        const { from } = location.state || { from: { pathname: '/' } };
+        history.replace(from);
+      });
   };
 
   return (
     <div>
       <LoginForm onSubmit={handleSubmit} />
+      {isLoading && <div>...login in nodepop</div>}
+      {error && (
+        <div onClick={resetError} style={{ color: 'red' }}>
+          {error.message}
+        </div>
+      )}
     </div>
   );
 }

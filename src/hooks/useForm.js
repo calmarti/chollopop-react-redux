@@ -25,7 +25,7 @@ function useForm(initialFormValue) {
 
   const handleChange = ev => {
     const valueGetter = getValueByType[ev.target.type] || defaultGetValue;
-    updateFormValue(ev.target.name, valueGetter(ev.target, formValue));
+    updateFormValue(ev.target.name, valueGetter(ev.target));
   };
 
   const handleSubmit = onSubmit => ev => {
