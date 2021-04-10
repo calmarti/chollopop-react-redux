@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 function EmptyList({ advertsCount }) {
   return (
     <div>
+      <p>No adverts here!</p>
       {advertsCount > 0 ? (
         'Refine your search'
       ) : (

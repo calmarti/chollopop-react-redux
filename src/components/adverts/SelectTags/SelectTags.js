@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { getTags } from '../../../api/adverts';
+import { CheckboxGroup } from '../../shared';
 
 function SelectTags(props) {
   const [tags, setTags] = React.useState([]);
@@ -9,15 +10,7 @@ function SelectTags(props) {
     getTags().then(setTags);
   }, []);
 
-  return (
-    <select {...props}>
-      {tags.map(tag => (
-        <option key={tag} value={tag}>
-          {tag}
-        </option>
-      ))}
-    </select>
-  );
+  return <CheckboxGroup options={tags} {...props} />;
 }
 
 export default SelectTags;

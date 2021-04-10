@@ -25,7 +25,7 @@ function FiltersForm({ initialFilters, defaultFilters, onFilter, prices }) {
 
   return (
     <form onSubmit={handleSubmit(onFilter)}>
-      Filters
+      <p>Filters</p>
       <input name="name" value={name} onChange={handleChange} />
       <RadioGroup
         options={Object.values(saleFilter)}
@@ -43,7 +43,7 @@ function FiltersForm({ initialFilters, defaultFilters, onFilter, prices }) {
         marks={{ [min]: min, [max]: max }}
       />
       <SelectTags multiple name="tags" value={tags} onChange={handleChange} />
-      <input type="submit" value="Filter" />
+      <button type="submit">Filter</button>
       <button onClick={handleResetClick}>Reset</button>
     </form>
   );

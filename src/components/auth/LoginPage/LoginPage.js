@@ -24,7 +24,7 @@ function LoginPage() {
   return (
     <div>
       <LoginForm onSubmit={handleSubmit} />
-      {isLoading && <div>...login in nodepop</div>}
+      {isLoading && <p>...login in nodepop</p>}
       {error && (
         <div onClick={resetError} style={{ color: 'red' }}>
           {error.message}
