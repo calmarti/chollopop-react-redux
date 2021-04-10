@@ -17,6 +17,8 @@ function Header() {
             >
               Nodepop
             </NavLink>
+          </li>
+          <li>
             <NavLink
               to="/adverts/new"
               activeClassName="selected"
