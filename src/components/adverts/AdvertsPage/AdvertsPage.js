@@ -6,7 +6,6 @@ import FiltersForm from './FiltersForm';
 import AdvertsList from './AdvertsList';
 import EmptyList from './EmptyList';
 import storage from '../../../utils/storage';
-import useForm from '../../../hooks/useForm';
 import { getAdverts } from '../../../api/adverts';
 import { defaultFilters, filterAdverts } from './filters';
 import usePromise from '../../../hooks/usePromise';
@@ -18,11 +17,7 @@ function AdvertsPage() {
   const { isPending: isLoading, error, execute, data: adverts } = usePromise(
     []
   );
-  const {
-    formValue: filters,
-    setFormValue: setFilters,
-    handleChange,
-  } = useForm(getFilters);
+  const [filters, setFilters] = React.useState(getFilters);
 
   React.useEffect(() => {
     execute(getAdverts());
@@ -31,10 +26,6 @@ function AdvertsPage() {
   React.useEffect(() => {
     saveFilters(filters);
   }, [filters]);
-
-  const handleReset = () => {
-    setFilters(defaultFilters);
-  };
 
   if (error?.statusCode === 401) {
     return <Redirect to="/login" />;
@@ -46,10 +37,10 @@ function AdvertsPage() {
     <Layout>
       {adverts.length > 0 && (
         <FiltersForm
-          {...filters}
+          initialFilters={filters}
+          defaultFilters={defaultFilters}
           prices={adverts.map(({ price }) => price)}
-          onChange={handleChange}
-          onReset={handleReset}
+          onFilter={setFilters}
         />
       )}
       {filteredAdverts.length ? (
