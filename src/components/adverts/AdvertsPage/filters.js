@@ -47,3 +47,12 @@ export const filterAdverts = (adverts, { name, price, sale, tags }) => {
     filterByTags(tags)
   );
 };
+
+// export const filterAdverts = (adverts, { name, price, sale, tags }) =>
+//   adverts.filter(
+//     advert =>
+//       filterByName(name)(advert) &&
+//       filterByPrice(price)(advert) &&
+//       filterBySale(sale)(advert) &&
+//       filterByTags(tags)(advert)
+//   );
