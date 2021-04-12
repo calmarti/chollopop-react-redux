@@ -21,8 +21,8 @@ function CheckboxGroup({ options, value, onChange, ...props }) {
             type="checkbox"
             value={option}
             checked={value.includes(option)}
-            {...props}
             onChange={handleChange}
+            {...props}
           />
           {option}
         </label>
