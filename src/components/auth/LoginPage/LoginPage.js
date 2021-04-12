@@ -1,15 +1,13 @@
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import T from 'prop-types';
 
 import { useAuthContext } from '../context';
 import usePromise from '../../../hooks/usePromise';
 import { login } from '../../../api/auth';
 import LoginForm from './LoginForm';
 
-function LoginPage() {
+function LoginPage({ location, history }) {
   const { handleLogin } = useAuthContext();
-  const location = useLocation();
-  const history = useHistory();
   const { isPending: isLoading, error, execute, resetError } = usePromise();
 
   const handleSubmit = credentials => {
@@ -33,5 +31,11 @@ function LoginPage() {
     </div>
   );
 }
+
+LoginPage.propTypes = {
+  location: T.shape({ state: T.shape({ from: T.string.isRequired }) })
+    .isRequired,
+  history: T.shape({ replace: T.func.isRequired }).isRequired,
+};
 
 export default LoginPage;

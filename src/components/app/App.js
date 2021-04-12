@@ -18,18 +18,14 @@ function App({ isInitiallyLogged }) {
   return (
     <AuthProvider {...authProps}>
       <Switch>
-        <PrivateRoute exact path="/adverts/new">
-          <NewAdvertPage />
-        </PrivateRoute>
+        <PrivateRoute exact path="/adverts/new" component={NewAdvertPage} />
         <PrivateRoute exact path="/adverts/:advertId">
           <AdvertPage />
         </PrivateRoute>
         <PrivateRoute exact path="/adverts">
           <AdvertsPage />
         </PrivateRoute>
-        <Route exact path="/login">
-          <LoginPage />
-        </Route>
+        <Route exact path="/login" component={LoginPage} />
         <Route exact path="/404">
           <NotFoundPage />
         </Route>

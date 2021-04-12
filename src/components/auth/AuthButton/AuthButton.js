@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
+import T from 'prop-types';
 
 import { ConfirmationButton } from '../../shared';
-import { useAuthContext } from '../context';
+import { AuthConsumer } from '../context';
 import { logout } from '../../../api/auth';
 
-const AuthButton = () => {
-  const { isLogged, handleLogout } = useAuthContext();
-
+const AuthButton = ({ handleLogout, isLogged }) => {
   const handleLogoutConfirm = async () => {
     await logout();
     handleLogout();
@@ -24,4 +23,17 @@ const AuthButton = () => {
   );
 };
 
-export default AuthButton;
+AuthButton.propTypes = {
+  handleLogout: T.func.isRequired,
+  isLogged: T.bool,
+};
+
+AuthButton.defaultProps = {
+  isLogged: false,
+};
+
+const ConnectedAuthButton = (...props) => (
+  <AuthConsumer>{auth => <AuthButton {...auth} {...props} />}</AuthConsumer>
+);
+
+export default ConnectedAuthButton;

@@ -12,6 +12,8 @@ export const AuthProvider = ({ children, ...props }) => (
   <AuthContext.Provider value={props}>{children}</AuthContext.Provider>
 );
 
+export const AuthConsumer = AuthContext.Consumer;
+
 AuthProvider.propTypes = {
   children: T.node,
 };

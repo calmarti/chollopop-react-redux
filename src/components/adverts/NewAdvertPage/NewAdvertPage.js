@@ -1,13 +1,13 @@
 import React from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import T from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { createAdvert } from '../../../api/adverts';
 import usePromise from '../../../hooks/usePromise';
 import Layout from '../../layout';
 import NewAdvertForm from './NewAdvertForm';
 
-function NewAdvertPage() {
-  const history = useHistory();
+function NewAdvertPage({ history }) {
   const { isPending: isLoading, error, execute } = usePromise(null);
 
   const handleSubmit = newAdvert => {
@@ -26,5 +26,11 @@ function NewAdvertPage() {
     </Layout>
   );
 }
+
+NewAdvertPage.propTypes = {
+  history: T.shape({
+    push: T.func.isRequired,
+  }).isRequired,
+};
 
 export default NewAdvertPage;

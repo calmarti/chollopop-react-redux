@@ -3,7 +3,7 @@ import { AuthButton } from '../auth';
 
 import './Header.css';
 
-const isExact = match => match && match.isExact;
+const isExact = match => match?.isExact;
 
 function Header() {
   return (
@@ -12,7 +12,11 @@ function Header() {
       <nav>
         <ul>
           <li>
-            <NavLink to="/adverts" activeClassName="selected">
+            <NavLink
+              to="/adverts"
+              activeClassName="selected"
+              isActive={isExact}
+            >
               Nodepop
             </NavLink>
           </li>
