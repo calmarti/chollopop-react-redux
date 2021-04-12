@@ -32,7 +32,7 @@ AuthButton.defaultProps = {
   isLogged: false,
 };
 
-const ConnectedAuthButton = (...props) => (
+const ConnectedAuthButton = props => (
   <AuthConsumer>{auth => <AuthButton {...auth} {...props} />}</AuthConsumer>
 );
 
