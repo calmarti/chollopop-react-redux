@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { AuthButton } from '../auth';
 
+import './Header.css';
+
 const isExact = match => match && match.isExact;
 
 function Header() {
@@ -10,11 +12,7 @@ function Header() {
       <nav>
         <ul>
           <li>
-            <NavLink
-              to="/adverts"
-              activeClassName="selected"
-              isActive={isExact}
-            >
+            <NavLink to="/adverts" activeClassName="selected">
               Nodepop
             </NavLink>
           </li>
