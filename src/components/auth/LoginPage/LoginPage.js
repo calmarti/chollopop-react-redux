@@ -33,7 +33,7 @@ function LoginPage({ location, history }) {
 }
 
 LoginPage.propTypes = {
-  location: T.shape({ state: T.shape({ from: T.string.isRequired }) })
+  location: T.shape({ state: T.shape({ from: T.object.isRequired }) })
     .isRequired,
   history: T.shape({ replace: T.func.isRequired }).isRequired,
 };
