@@ -11,6 +11,7 @@ export const login = ({ remember, ...credentials }) => {
       return accessToken;
     })
     .then(accessToken => {
+      storage.remove('auth');
       if (remember) {
         storage.set('auth', accessToken);
       }
