@@ -1,7 +1,7 @@
 import T from 'prop-types';
 
 import useForm from '../../../hooks/useForm';
-import { InputFile } from '../../shared';
+import { InputFile } from '../../common';
 import SelectTags from '../SelectTags';
 
 const validName = ({ name }) => name;
@@ -10,7 +10,12 @@ const validPrice = ({ price }) =>
 const validTags = ({ tags }) => !!tags.length;
 
 function NewAdvertForm({ onSubmit }) {
-  const { formValue: advert, handleChange, handleSubmit, validate } = useForm({
+  const {
+    formValue: advert,
+    handleChange,
+    handleSubmit,
+    validate,
+  } = useForm({
     name: '',
     sale: true,
     price: 0,

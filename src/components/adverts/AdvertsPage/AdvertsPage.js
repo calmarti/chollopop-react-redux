@@ -6,7 +6,7 @@ import FiltersForm from './FiltersForm';
 import AdvertsList from './AdvertsList';
 import EmptyList from './EmptyList';
 import storage from '../../../utils/storage';
-import { getAdverts } from '../../../api/adverts';
+import { getAdverts } from '../service';
 import { defaultFilters, filterAdverts } from './filters';
 import usePromise from '../../../hooks/usePromise';
 
@@ -14,9 +14,12 @@ const getFilters = () => storage.get('filters') || defaultFilters;
 const saveFilters = filters => storage.set('filters', filters);
 
 function AdvertsPage() {
-  const { isPending: isLoading, error, execute, data: adverts } = usePromise(
-    []
-  );
+  const {
+    isPending: isLoading,
+    error,
+    execute,
+    data: adverts,
+  } = usePromise([]);
   const [filters, setFilters] = React.useState(getFilters);
 
   React.useEffect(() => {

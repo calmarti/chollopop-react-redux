@@ -2,7 +2,7 @@ import React from 'react';
 import T from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-import { createAdvert } from '../../../api/adverts';
+import { createAdvert } from '../service';
 import usePromise from '../../../hooks/usePromise';
 import Layout from '../../layout';
 import NewAdvertForm from './NewAdvertForm';
@@ -12,7 +12,7 @@ function NewAdvertPage({ history }) {
 
   const handleSubmit = newAdvert => {
     execute(createAdvert(newAdvert)).then(({ id }) =>
-      history.push(`/adverts/${id}`)
+      history.push(`/adverts/${id}`),
     );
   };
 

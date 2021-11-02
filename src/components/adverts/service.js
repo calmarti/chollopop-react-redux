@@ -1,7 +1,7 @@
-import client from './client';
-import { withFormData } from '../utils/converters';
+import client from '../../api/client';
+import { withFormData } from '../../utils/converters';
 
-const advertsPath = '/api/v1/adverts';
+const advertsPath = '/v1/adverts';
 
 const mapAdvert = ({ photo, ...advert }) => ({
   ...advert,

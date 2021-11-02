@@ -3,7 +3,7 @@ import T from 'prop-types';
 
 import { useAuthContext } from '../context';
 import usePromise from '../../../hooks/usePromise';
-import { login } from '../../../api/auth';
+import { login } from '../service';
 import LoginForm from './LoginForm';
 
 function LoginPage({ location, history }) {

@@ -2,7 +2,7 @@ import T from 'prop-types';
 
 import useForm from '../../../hooks/useForm';
 import SelectTags from '../SelectTags';
-import { RadioGroup, SelectRange } from '../../shared';
+import { RadioGroup, SelectRange } from '../../common';
 import { advert } from '../propTypes';
 import { saleFilter } from './filters';
 

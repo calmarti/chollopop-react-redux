@@ -1,7 +1,7 @@
-import client, { configureClient, resetClient } from './client';
-import storage from '../utils/storage';
+import client, { configureClient, resetClient } from '../../api/client';
+import storage from '../../utils/storage';
 
-const authPath = '/api/auth';
+const authPath = '/auth';
 
 export const login = ({ remember, ...credentials }) => {
   return client

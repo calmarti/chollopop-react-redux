@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import T from 'prop-types';
 
-import { ConfirmationButton } from '../../shared';
+import { ConfirmationButton } from '../../common';
 import { AuthConsumer } from '../context';
-import { logout } from '../../../api/auth';
+import { logout } from '../service';
 
 const AuthButton = ({ handleLogout, isLogged }) => {
   const handleLogoutConfirm = async () => {

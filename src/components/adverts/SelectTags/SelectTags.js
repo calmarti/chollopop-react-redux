@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { getTags } from '../../../api/adverts';
-import { CheckboxGroup } from '../../shared';
+import { getTags } from '../service';
+import { CheckboxGroup } from '../../common';
 
 function SelectTags(props) {
   const [tags, setTags] = React.useState([]);

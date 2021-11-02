@@ -1,7 +1,7 @@
 import React from 'react';
 import T from 'prop-types';
 
-import { ConfirmationButton } from '../../shared';
+import { ConfirmationButton } from '../../common';
 import placeholder from '../../../assets/images/placeholder.png';
 import { advert } from '../propTypes';
 

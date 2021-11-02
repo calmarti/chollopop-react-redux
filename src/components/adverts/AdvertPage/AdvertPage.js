@@ -3,15 +3,18 @@ import { Redirect, useParams, useHistory } from 'react-router-dom';
 
 import Layout from '../../layout';
 import AdvertDetail from './AdvertDetail';
-import { getAdvert, deleteAdvert } from '../../../api/adverts';
+import { getAdvert, deleteAdvert } from '../service';
 import usePromise from '../../../hooks/usePromise';
 
 function AdvertPage() {
   const { advertId } = useParams();
   const history = useHistory();
-  const { isPending: isLoading, error, execute, data: advert } = usePromise(
-    null
-  );
+  const {
+    isPending: isLoading,
+    error,
+    execute,
+    data: advert,
+  } = usePromise(null);
 
   React.useEffect(() => {
     execute(getAdvert(advertId));
