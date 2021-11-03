@@ -1,29 +1,27 @@
 import React from 'react';
 
-function usePromise(initialValue) {
-  const [data, setData] = React.useState(initialValue);
-  const [isPending, setIsPending] = React.useState(false);
+function useMutation(mutation) {
+  const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
 
   const resetError = () => setError(null);
 
   const startExecution = () => {
     resetError();
-    setIsPending(true);
+    setIsLoading(true);
   };
 
-  const finishExecution = (error, data) => {
-    setIsPending(false);
+  const finishExecution = error => {
+    setIsLoading(false);
     if (error) {
       return setError(error);
     }
-    setData(data);
   };
 
-  const execute = async function (promise) {
+  const execute = async function (...args) {
     startExecution();
     try {
-      const result = await promise;
+      const result = await mutation(...args);
       finishExecution(null, result);
       return result;
     } catch (error) {
@@ -33,12 +31,11 @@ function usePromise(initialValue) {
   };
 
   return {
-    isPending,
+    isLoading,
     error,
-    data,
     execute,
     resetError,
   };
 }
 
-export default usePromise;
+export default useMutation;

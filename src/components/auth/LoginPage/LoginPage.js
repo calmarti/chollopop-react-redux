@@ -2,16 +2,16 @@ import React from 'react';
 import T from 'prop-types';
 
 import { useAuthContext } from '../context';
-import usePromise from '../../../hooks/usePromise';
 import { login } from '../service';
 import LoginForm from './LoginForm';
+import useMutation from '../../../hooks/useMutation';
 
 function LoginPage({ location, history }) {
   const { handleLogin } = useAuthContext();
-  const { isPending: isLoading, error, execute, resetError } = usePromise();
+  const { isLoading, error, execute, resetError } = useMutation(login);
 
   const handleSubmit = credentials => {
-    execute(login(credentials))
+    execute(credentials)
       .then(handleLogin)
       .then(() => {
         const { from } = location.state || { from: { pathname: '/' } };

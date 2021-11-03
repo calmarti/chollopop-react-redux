@@ -4,27 +4,24 @@ import { Redirect, useParams, useHistory } from 'react-router-dom';
 import Layout from '../../layout';
 import AdvertDetail from './AdvertDetail';
 import { getAdvert, deleteAdvert } from '../service';
-import usePromise from '../../../hooks/usePromise';
+import useQuery from '../../../hooks/useQuery';
+import useMutation from '../../../hooks/useMutation';
 
 function AdvertPage() {
   const { advertId } = useParams();
   const history = useHistory();
-  const {
-    isPending: isLoading,
-    error,
-    execute,
-    data: advert,
-  } = usePromise(null);
-
-  React.useEffect(() => {
-    execute(getAdvert(advertId));
-  }, [advertId]);
+  const getAdvertById = React.useCallback(
+    () => getAdvert(advertId),
+    [advertId],
+  );
+  const { isLoading, error, data: advert } = useQuery(getAdvertById);
+  const mutation = useMutation(deleteAdvert);
 
   const handleDelete = () => {
-    execute(deleteAdvert(advertId)).then(() => history.push('/'));
+    mutation.execute(advertId).then(() => history.push('/'));
   };
 
-  if (error?.statusCode === 401) {
+  if (error?.statusCode === 401 || mutation.error?.statusCode === 401) {
     return <Redirect to="/login" />;
   }
 

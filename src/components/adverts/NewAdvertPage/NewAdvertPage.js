@@ -3,20 +3,20 @@ import T from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import { createAdvert } from '../service';
-import usePromise from '../../../hooks/usePromise';
 import Layout from '../../layout';
 import NewAdvertForm from './NewAdvertForm';
+import useMutation from '../../../hooks/useMutation';
 
 function NewAdvertPage({ history }) {
-  const { isPending: isLoading, error, execute } = usePromise(null);
+  const mutation = useMutation(createAdvert);
 
   const handleSubmit = newAdvert => {
-    execute(createAdvert(newAdvert)).then(({ id }) =>
-      history.push(`/adverts/${id}`),
-    );
+    mutation
+      .execute(newAdvert)
+      .then(({ id }) => history.push(`/adverts/${id}`));
   };
 
-  if (error?.statusCode === 401) {
+  if (mutation.error?.statusCode === 401) {
     return <Redirect to="/login" />;
   }
 
