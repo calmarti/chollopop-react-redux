@@ -34,7 +34,7 @@ function NewAdvertForm({ onSubmit }) {
         onChange={handleChange}
       />
       <input type="number" name="price" value={price} onChange={handleChange} />
-      <SelectTags multiple name="tags" value={tags} onChange={handleChange} />
+      <SelectTags name="tags" value={tags} onChange={handleChange} />
       <InputFile name="photo" onChange={handleChange} />
       <button disabled={!validate(validName, validPrice, validTags)}>
         Save
