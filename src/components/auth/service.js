@@ -3,7 +3,7 @@ import storage from '../../utils/storage';
 
 const authPath = '/auth';
 
-export const login = ({ remember, ...credentials }) => {
+export const login = (remember, credentials) => {
   return client
     .post(`${authPath}/login`, credentials)
     .then(({ accessToken }) => {
@@ -21,3 +21,5 @@ export const login = ({ remember, ...credentials }) => {
 export const logout = () => {
   return Promise.resolve().then(resetClient).then(storage.clear);
 };
+
+

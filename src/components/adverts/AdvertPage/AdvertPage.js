@@ -1,24 +1,25 @@
-import React from 'react';
-import { Redirect, useParams, useHistory } from 'react-router-dom';
+// import { useCallback } from "react";
+import { Redirect, useParams, useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import Layout from "../../layout";
+import AdvertDetail from "./AdvertDetail";
+import { /* getAdvert,  */ deleteAdvert } from "../service";
+// import useQuery from "../../../hooks/useQuery";
+import useMutation from "../../../hooks/useMutation";
+import { advertSelector, uiSelector } from "../../../store/selectors";
 
-import Layout from '../../layout';
-import AdvertDetail from './AdvertDetail';
-import { getAdvert, deleteAdvert } from '../service';
-import useQuery from '../../../hooks/useQuery';
-import useMutation from '../../../hooks/useMutation';
-
-function AdvertPage() {
-  const { advertId } = useParams();
+function AdvertPage({ advert, match, isLoading, error }) {
+  //const { advertId } = useParams();
+  const advertId = match.params.advertId;
   const history = useHistory();
-  const getAdvertById = React.useCallback(
-    () => getAdvert(advertId),
-    [advertId],
-  );
-  const { isLoading, error, data: advert } = useQuery(getAdvertById);
+
+  // const getAdvertById = useCallback(() => getAdvert(advertId), [advertId]);
+  // const { isLoading, error, data: advert } = useQuery(getAdvertById);
+
   const mutation = useMutation(deleteAdvert);
 
   const handleDelete = () => {
-    mutation.execute(advertId).then(() => history.push('/'));
+    mutation.execute(advertId).then(() => history.push("/"));
   };
 
   if (error?.statusCode === 401 || mutation.error?.statusCode === 401) {
@@ -36,4 +37,14 @@ function AdvertPage() {
   );
 }
 
-export default AdvertPage;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    advert: advertSelector(state, ownProps.match.params.advertId),
+    isLoading: uiSelector(state).isLoading,
+    error: uiSelector(state).error,
+  };
+};
+
+const ConnectedAdvertPage = connect(mapStateToProps)(AdvertPage);
+
+export default ConnectedAdvertPage;

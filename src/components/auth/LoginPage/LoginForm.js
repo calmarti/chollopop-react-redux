@@ -1,25 +1,35 @@
-import T from 'prop-types';
+import T from "prop-types";
 
-import useForm from '../../../hooks/useForm';
+import useForm from "../../../hooks/useForm";
 
-const validEmail = ({ email }) => email;
-const validPassword = ({ password }) => password;
+// const validEmail = ({ email }) => email;
+// const validPassword = ({ password }) => password;
 
-function LoginForm({ onSubmit }) {
+function LoginForm({ handleLogin, isLoading, error}) {
   const {
     formValue: credentials,
     handleChange,
-    handleSubmit,
-    validate,
+    // handleSubmit,
+    // validate,
   } = useForm({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     remember: false,
   });
-  const { email, password, remember } = credentials;
+  const { email, password ,  remember  } = credentials;
+ 
+
+  const handleSubmit = (ev) => {  
+    ev.preventDefault();
+    handleLogin(credentials);   //TODO: problem: el AUTH_LOGIN_REQUEST no pasaba el 'isLoading' a true; al cambiar ...state por el nuevo estado se arregló, ¿porqué?
+
+  };
+
+  const disabledButton = isLoading || !credentials.email || !credentials.password  //TODO: comprobar que esto funciona
+
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit}>
       <input name="email" value={email} onChange={handleChange} />
       <input
         type="password"
@@ -27,19 +37,19 @@ function LoginForm({ onSubmit }) {
         value={password}
         onChange={handleChange}
       />
-      <input
+      {<input
         type="checkbox"
         name="remember"
         checked={remember}
         onChange={handleChange}
-      />
-      <button disabled={!validate(validEmail, validPassword)}>Login</button>
+      />}
+      <button /* type='submit' */ /* disabled={!validate(validEmail, validPassword)} */ disabled={disabledButton}>Login</button>
     </form>
   );
 }
 
 LoginForm.propTypes = {
-  onSubmit: T.func.isRequired,
+  handleLogin: T.func.isRequired,
 };
 
 export default LoginForm;

@@ -1,9 +1,14 @@
-import React from 'react';
+import React from "react";
+import { getAdvert, getAdverts } from "../components/adverts/service";
+import { advertsSelector } from "../store/selectors";
+import { useSelector, useDispatch } from "react-redux";
 
 function useQuery(query) {
   const [data, setData] = React.useState(undefined);
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+
+
 
   React.useEffect(() => {
     const startExecution = () => {

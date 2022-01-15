@@ -1,8 +1,8 @@
-import T from 'prop-types';
+import T from "prop-types";
 
-import useForm from '../../../hooks/useForm';
-import { InputFile } from '../../common';
-import SelectTags from '../SelectTags';
+import useForm from "../../../hooks/useForm";
+import { InputFile } from "../../common";
+import SelectTags from "../SelectTags";
 
 const validName = ({ name }) => name;
 const validPrice = ({ price }) =>
@@ -13,16 +13,21 @@ function NewAdvertForm({ onSubmit }) {
   const {
     formValue: advert,
     handleChange,
-    handleSubmit,
-    validate,
+    // handleSubmit,
+    // validate,
   } = useForm({
-    name: '',
+    name: "",
     sale: true,
     price: 0,
     tags: [],
     photo: null,
   });
   const { name, sale, price, tags } = advert;
+
+  const handleSubmit = (onSubmit) => (ev) => {
+    ev.preventDefault();
+    onSubmit(advert);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -36,7 +41,7 @@ function NewAdvertForm({ onSubmit }) {
       <input type="number" name="price" value={price} onChange={handleChange} />
       <SelectTags name="tags" value={tags} onChange={handleChange} />
       <InputFile name="photo" onChange={handleChange} />
-      <button disabled={!validate(validName, validPrice, validTags)}>
+      <button /* disabled={!validate(validName, validPrice, validTags)} */> 
         Save
       </button>
     </form>

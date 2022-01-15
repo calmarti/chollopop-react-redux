@@ -10,7 +10,7 @@ import useMutation from '../../../hooks/useMutation';
 function NewAdvertPage({ history }) {
   const mutation = useMutation(createAdvert);
 
-  const handleSubmit = newAdvert => {
+  const onSubmit = newAdvert => {
     mutation
       .execute(newAdvert)
       .then(({ id }) => history.push(`/adverts/${id}`));
@@ -22,7 +22,7 @@ function NewAdvertPage({ history }) {
 
   return (
     <Layout>
-      <NewAdvertForm onSubmit={handleSubmit} />
+      <NewAdvertForm onSubmit={onSubmit} />
     </Layout>
   );
 }

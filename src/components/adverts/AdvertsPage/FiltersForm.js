@@ -11,7 +11,7 @@ function FiltersForm({ initialFilters, defaultFilters, onFilter, prices }) {
     formValue: filters,
     setFormValue,
     handleChange,
-    handleSubmit,
+    // handleSubmit,
   } = useForm(initialFilters);
 
   const handleResetClick = () => {
@@ -24,7 +24,7 @@ function FiltersForm({ initialFilters, defaultFilters, onFilter, prices }) {
   const max = Math.max(...prices);
 
   return (
-    <form onSubmit={handleSubmit(onFilter)}>
+    <form /* onSubmit={handleSubmit(onFilter)} */>
       <p>Filters</p>
       <input name="name" value={name} onChange={handleChange} />
       <RadioGroup

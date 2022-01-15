@@ -28,20 +28,20 @@ function useForm(initialFormValue) {
     updateFormValue(ev.target.name, valueGetter(ev.target));
   };
 
-  const handleSubmit = onSubmit => ev => {
-    ev.preventDefault();
-    onSubmit(formValue);
-  };
+  // const handleSubmit = onSubmit => ev => {
+  //   ev.preventDefault();
+  //   onSubmit(formValue);
+  // };
 
-  const validate = (...validations) =>
-    validations.map(validation => validation(formValue)).every(valid => valid);
+  // const validate = (...validations) =>
+  //   validations.map(validation => validation(formValue)).every(valid => valid);
 
   return {
     formValue,
     setFormValue,
     handleChange,
-    handleSubmit,
-    validate,
+    // handleSubmit,
+    // validate,
   };
 }
 

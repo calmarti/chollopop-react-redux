@@ -1,40 +1,45 @@
-import React from 'react';
-import T from 'prop-types';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React from "react";
+import T from "prop-types";
+import { Switch, Route, Redirect } from "react-router-dom";
 
-import { AdvertPage, AdvertsPage, NewAdvertPage } from '../adverts';
-import { LoginPage, PrivateRoute } from '../auth';
-import { AuthProvider } from '../auth/context';
-import NotFoundPage from './NotFoundPage';
+import { AdvertPage, AdvertsPage, NewAdvertPage } from "../adverts";
+import { LoginPage, PrivateRoute } from "../auth";
+//import { AuthProvider } from '../auth/context';
+import NotFoundPage from "./NotFoundPage";
 
-function App({ isInitiallyLogged }) {
-  const [isLogged, setIsLogged] = React.useState(isInitiallyLogged);
+// import { authLogin } from "../../store/actions";
+// import { authLogout } from "../../store/actions";
 
-  const handleLogin = () => setIsLogged(true);
-  const handleLogout = () => setIsLogged(false);
+function App() {
+  /*   const [isLogged, setIsLogged] = React.useState(true); */
 
-  const authProps = { isLogged, handleLogin, handleLogout };
+  /*   store.subscribe(()=> setIsLogged(store.getState().auth)) */
+
+  /*   const handleLogin = () => store.dispatch(authLogin())  */ /* setIsLogged(true); */
+  /*   const handleLogout = () => store.dispatch(authLogout())  */ /* setIsLogged(false); */
+
+  // const authProps = {isLogged, handleLogin, handleLogout };
 
   return (
-    <AuthProvider {...authProps}>
-      <Switch>
-        <PrivateRoute exact path="/adverts/new" component={NewAdvertPage} />
-        <PrivateRoute exact path="/adverts/:advertId">
-          <AdvertPage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/adverts">
-          <AdvertsPage />
-        </PrivateRoute>
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/404">
-          <NotFoundPage />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/adverts" />
-        </Route>
-        <Redirect to="/404" />
-      </Switch>
-    </AuthProvider>
+    // <AuthProvider {...authProps}>
+    <Switch>
+      <PrivateRoute exact path="/adverts/new" component={NewAdvertPage} />
+      <PrivateRoute exact path="/adverts/:advertId">
+        {(routerProps) => <AdvertPage {...routerProps} />}
+      </PrivateRoute>
+      <PrivateRoute exact path="/adverts">
+        <AdvertsPage />
+      </PrivateRoute>
+      <Route exact path="/login" component={LoginPage} />
+      <Route exact path="/404">
+        <NotFoundPage />
+      </Route>
+      <Route exact path="/">
+        <Redirect to="/adverts" />
+      </Route>
+      <Redirect to="/404" />
+    </Switch>
+    // </AuthProvider>
   );
 }
 
