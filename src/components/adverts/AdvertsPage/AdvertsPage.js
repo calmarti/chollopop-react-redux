@@ -34,7 +34,7 @@ function AdvertsPage() {
     
   useEffect(() => {
     dispatch(loadAdverts());
-  }, []);
+  }, [dispatch]); //TODO: OJO con esta dependencia, si da problemas luego quitarla
   
 
   useEffect(() => {

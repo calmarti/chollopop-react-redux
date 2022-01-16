@@ -4,16 +4,19 @@ import {
   ADVERTS_LOADED,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_REQUEST,
-  AUTH_LOGIN_FAILURE,
+  // AUTH_LOGIN_FAILURE,
   UI_RESET_ERROR,
   LOAD_ADVERTS_REQUEST,
   LOAD_ADVERTS_SUCCESS,
-  LOAD_ADVERTS_FAILURE,
+  // LOAD_ADVERTS_FAILURE,
+  LOAD_ADVERT_REQUEST,
+  LOAD_ADVERT_SUCCESS,
+  // LOAD_ADVERT_FAILURE,
 } from "./types";
 
 const defaultState = {
   auth: false,
-  adverts: [],
+  adverts: { loaded: false, data: [] },
   ui: { isLoading: false, error: null },
 };
 
@@ -31,36 +34,38 @@ const defaultState = {
 //   }
 // };
 
-export const auth = (state = defaultState.auth, action) => {
+export const auth = (authState = defaultState.auth, action) => {
   switch (action.type) {
     case AUTH_LOGIN_SUCCESS:
       return true;
     case AUTH_LOGOUT:
       return false;
     default:
-      return state;
+      return authState;
   }
 };
 
-export const ui = (state = defaultState.ui, action) => {
+export const ui = (uiState = defaultState.ui, action) => {
+  if (action.error) {
+    return {
+      isLoading: false,
+      error: action.payload,
+    };
+  }
   switch (action.type) {
     case AUTH_LOGIN_REQUEST:
     case LOAD_ADVERTS_REQUEST:
+    case LOAD_ADVERT_REQUEST:
       return {
         isLoading: true,
         error: null,
       };
     case AUTH_LOGIN_SUCCESS:
     case LOAD_ADVERTS_SUCCESS:
+    case LOAD_ADVERT_SUCCESS:
       return {
         isLoading: false,
         error: null,
-      };
-    case AUTH_LOGIN_FAILURE:
-    case LOAD_ADVERTS_FAILURE:
-      return {
-        isLoading: false,
-        error: action.payload,
       };
     case UI_RESET_ERROR:
       return {
@@ -68,16 +73,19 @@ export const ui = (state = defaultState.ui, action) => {
         error: null,
       };
     default:
-      return state;
+      return uiState;
   }
 };
 
-export const adverts = (state = defaultState.adverts, action) => {
+export const adverts = (advertsState = defaultState.adverts, action) => {
   switch (action.type) {
     case LOAD_ADVERTS_SUCCESS:
-      return action.payload;
+      return { loaded: true, data: action.payload };  
+    case LOAD_ADVERT_SUCCESS:
+      console.log("I reached the reducer");
+      return { ...advertsState, data: [...advertsState.data, action.payload] };
     default:
-      return state;
+      return advertsState;
   }
 };
 
