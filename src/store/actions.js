@@ -1,5 +1,5 @@
 import { advert } from "../components/adverts/propTypes";
-import { advertSelector, advertsSelector, loadedSelector } from "./selectors";
+import { advertSelector, advertsSelector, deleteSelector, loadedSelector } from "./selectors";
 import {
   // AUTH_LOGIN,
   AUTH_LOGOUT,
@@ -195,10 +195,10 @@ export const deleteAdvertRequest = () => {
   };
 };
 
-export const deleteAdvertSuccess = (advertId) => {
+export const deleteAdvertSuccess = () => {
   return {
     type: DELETE_ADVERT_SUCCESS,
-    payload: advertId,
+    // payload: advertId,
   };
 };
 
@@ -214,7 +214,9 @@ export const deleteAdvert = (advertId) => {
   return async (dispatch, getState, { api, history }) => {
     // dispatch(deleteAdvertRequest());
     try {
-      await dispatch(deleteAdvertSuccess(advertId));
+      await api.adverts.deleteAdvert(advertId);
+      deleteSelector(getState(), advertId)
+      dispatch(deleteAdvertSuccess());
       history.push("/");
     } catch (error) {
       // dispatch(deleteAdvertFailure(error))

@@ -11,8 +11,9 @@ import {
   // LOAD_ADVERTS_FAILURE,
   LOAD_ADVERT_REQUEST,
   LOAD_ADVERT_SUCCESS,
-  CREATE_ADVERT_SUCCESS,
   // LOAD_ADVERT_FAILURE,
+  CREATE_ADVERT_SUCCESS,
+  DELETE_ADVERT_SUCCESS,
 } from "./types";
 
 const defaultState = {
@@ -86,6 +87,8 @@ export const adverts = (advertsState = defaultState.adverts, action) => {
     case CREATE_ADVERT_SUCCESS:
       console.log("I reached the reducer");
       return { ...advertsState, data: [...advertsState.data, action.payload] };   
+    case DELETE_ADVERT_SUCCESS:
+      return 
     default:
       return advertsState;
   }
