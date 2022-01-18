@@ -42,11 +42,7 @@ function LoginPage({
 
   return (
     <div>
-      <LoginForm
-        handleLogin={handleLogin}
-        isLoading={isLoading}
-        error={error}
-      />
+      <LoginForm handleLogin={handleLogin} isLoading={isLoading} />
       {isLoading && <p>...login in nodepop</p>}
 
       {error && (

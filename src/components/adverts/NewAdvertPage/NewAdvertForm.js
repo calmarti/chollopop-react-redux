@@ -3,6 +3,11 @@ import T from "prop-types";
 import useForm from "../../../hooks/useForm";
 import { InputFile } from "../../common";
 import SelectTags from "../SelectTags";
+import { connect } from 'react-redux'
+import { createAdvert } from "../../../store/actions";
+
+//TODO: Hacer el disabled del butón de submit
+//TODO: llevar a redux la llamada al api de tags (coponente SelectTags)
 
 const validName = ({ name }) => name;
 const validPrice = ({ price }) =>
@@ -37,7 +42,7 @@ function NewAdvertForm({ onSubmit }) {
         name="sale"
         checked={sale}
         onChange={handleChange}
-      />
+      /> Sale
       <input type="number" name="price" value={price} onChange={handleChange} />
       <SelectTags name="tags" value={tags} onChange={handleChange} />
       <InputFile name="photo" onChange={handleChange} />
@@ -48,8 +53,22 @@ function NewAdvertForm({ onSubmit }) {
   );
 }
 
+const mapDispatchtoProps = (dispatch, ownProps) => {
+  return {
+    onSubmit: (advert) => {
+      dispatch(createAdvert(advert));
+    },
+  };
+};
+
+
+const connectedNewAdvertForm = connect(
+  undefined,
+  mapDispatchtoProps
+)(NewAdvertForm);
+
 NewAdvertForm.propTypes = {
   onSubmit: T.func.isRequired,
 };
 
-export default NewAdvertForm;
+export default connectedNewAdvertForm;

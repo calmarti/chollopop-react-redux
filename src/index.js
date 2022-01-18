@@ -15,6 +15,9 @@ import { createBrowserHistory } from "history";
 // store.dispatch(authLogin());
 // store.dispatch(authLogout());
 
+//TODO: no olvidar implementar el spinner (isLoading)
+//TODO: hacer la redireccion de los 401, 404 en los thunks y pasarle el error como prop a los componentes SOLO si lo van a pintar
+
 const accessToken = storage.get("auth");
 
 const history = createBrowserHistory();

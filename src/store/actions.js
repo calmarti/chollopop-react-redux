@@ -13,6 +13,9 @@ import {
   LOAD_ADVERT_REQUEST,
   LOAD_ADVERT_SUCCESS,
   LOAD_ADVERT_FAILURE,
+  CREATE_ADVERT_REQUEST,
+  CREATE_ADVERT_SUCCESS,
+  CREATE_ADVERT_FAILURE,
   UI_RESET_ERROR,
 } from "./types";
 
@@ -96,8 +99,8 @@ export const loadAdvertsFailure = (error) => {
 
 export const loadAdverts = () => {
   return async (dispatch, getState, { api }) => {
-    const loaded = loadedSelector(getState())  
-    if (loaded){                         
+    const loaded = loadedSelector(getState());
+    if (loaded) {
       return;
     }
     dispatch(loadAdvertsRequest());
@@ -145,6 +148,40 @@ export const loadAdvert = (advertId) => {
     } catch (error) {
       dispatch(loadAdvertFailure(error)); //OJO: "este caso de error puede ser importante de cara a la práctica"ç
       // console.log('error', error);
+    }
+  };
+};
+
+export const createAdvertRequest = () => {
+  return {
+    type: CREATE_ADVERT_REQUEST,
+  };
+};
+
+export const createAdvertSuccess = (advert) => {
+  return {
+    type: CREATE_ADVERT_SUCCESS,
+    payload: advert,
+  };
+};
+
+export const createAdvertFailure = (error) => {
+  return {
+    type: CREATE_ADVERT_FAILURE,
+    error: true,
+    payload: error,
+  };
+};
+
+export const createAdvert = (input) => {
+  return async (dispatch, getState, { api, history }) => {
+    try {
+      // dispatch(createAdvertRequest());
+      const advert = await api.adverts.createAdvert(input);
+      dispatch(createAdvertSuccess(advert));
+      history.push(`/adverts/${advert.id}`);
+    } catch (error) {
+      // dispatch(createAdvertFailure(error))
     }
   };
 };

@@ -27,7 +27,6 @@ function AdvertPage({ advert, ui,  getAdvert, history }) {
   //const advertId = match.params.advertId;
   // const history = useHistory();
 
-  const dispatch = useDispatch();
   // dispatch(loadAdvert(match.params.advertId)); //loop infinito del dispatch ó sino devuelve el state anterior (2 adverts o ninguno)
 
   // PRESINCIDIBLE:
@@ -40,12 +39,6 @@ function AdvertPage({ advert, ui,  getAdvert, history }) {
   //   console.log('getState: ', store.getState());
   // };
 
-  // PRESINCIDIBLE:
-  // const useDispatchLoadAdvert = useCallback(
-  //   () => dispatch(loadAdvert(advertId)),
-  //   [dispatch, advertId]
-  //   );
-  // useLoadAdvert();
 
   useEffect(() => {
     getAdvert();
@@ -58,14 +51,16 @@ function AdvertPage({ advert, ui,  getAdvert, history }) {
   // const advert = useSelector(advertsSelector);
   // const { isLoading, error } = useSelector(uiSelector);
 
-  const store = useStore();
-  console.log("getState: ", store.getState());
-  console.log("state.adverts", advert);
+
+
 
   // const getAdvertById = useCallback(() => getAdvert(advertId), [advertId]);
   // const { isLoading, error, data: advert } = useQuery(getAdvertById);
 
   const mutation = useMutation(deleteAdvert);
+
+
+  //TODO: llevar el borrado a redux
 
   const handleDelete = () => {
     mutation.execute(advertId).then(() => history.push("/"));

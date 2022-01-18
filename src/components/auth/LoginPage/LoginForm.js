@@ -5,7 +5,7 @@ import useForm from "../../../hooks/useForm";
 // const validEmail = ({ email }) => email;
 // const validPassword = ({ password }) => password;
 
-function LoginForm({ handleLogin, isLoading, error}) {
+function LoginForm({ handleLogin, isLoading }) {
   const {
     formValue: credentials,
     handleChange,

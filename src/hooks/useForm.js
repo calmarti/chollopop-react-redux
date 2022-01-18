@@ -13,6 +13,7 @@ const getValueByType = {
 
 const defaultGetValue = ({ value }) => value;
 
+
 function useForm(initialFormValue) {
   const [formValue, setFormValue] = React.useState(initialFormValue);
 

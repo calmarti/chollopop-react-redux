@@ -13,44 +13,53 @@ import { defaultFilters, filterAdverts } from "./filters";
 import { loadAdverts } from "../../../store/actions";
 import { advertsSelector } from "../../../store/selectors";
 
-
-const getFilters = () => storage.get("filters") || defaultFilters;
+const getFilters = () => storage.get("filters")  || defaultFilters;
 const saveFilters = (filters) => storage.set("filters", filters);
 
 function AdvertsPage() {
   // const { isLoading, error, data: adverts = [] } = useQuery(getAdverts);
-  const [filters, setFilters] = useState(getFilters);
+  const [filters, setFilters] = useState(getFilters); //TODO: ¿llevar los filters a redux?
+
 
   const dispatch = useDispatch();
-  
+
   //TODO: extraer el custom hook a un fichero en /hooks
+  //TODO: arreglar TODAS las funcionalidades de la primera práctica, por ejemplo aquí arreglar el onSubmit en FiltersForm
+  //(por alguna razón se ejecuta sin presionar el botón 'Filter')
   
-  const useLoadAdverts = () => {
+  useEffect(() => {    //TODO: readaptar
+    saveFilters(filters);
+  }, [filters]);
+
+  
+  useEffect(() => {
+    dispatch(loadAdverts());
+  }, [dispatch]); //TODO: OJO con esta dependencia, si da problemas luego quitarla
+
+
+  const useLoadAdverts = () => {    //TODO: llevar a /hooks o a /react-redux-hooks
     const adverts = useSelector(advertsSelector);
     return adverts;
   };
 
   const adverts = useLoadAdverts();
-    
-  useEffect(() => {
-    dispatch(loadAdverts());
-  }, [dispatch]); //TODO: OJO con esta dependencia, si da problemas luego quitarla
-  
 
-  useEffect(() => {
-    saveFilters(filters);
-  }, [filters]);
+
 
   // if (error?.statusCode === 401) {
   //   return <Redirect to="/login" />;
   // }
 
   const filteredAdverts = filterAdverts(adverts, filters);
+  console.log("filters ", filters);
+  console.log("adverts", adverts);
+  console.log("filteredAdverts", filteredAdverts);
 
   return (
     <Layout>
       {adverts.length > 0 && (
         <FiltersForm
+      
           initialFilters={filters}
           defaultFilters={defaultFilters}
           prices={adverts.map(({ price }) => price)}

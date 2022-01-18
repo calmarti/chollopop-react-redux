@@ -11,6 +11,7 @@ import {
   // LOAD_ADVERTS_FAILURE,
   LOAD_ADVERT_REQUEST,
   LOAD_ADVERT_SUCCESS,
+  CREATE_ADVERT_SUCCESS,
   // LOAD_ADVERT_FAILURE,
 } from "./types";
 
@@ -80,10 +81,11 @@ export const ui = (uiState = defaultState.ui, action) => {
 export const adverts = (advertsState = defaultState.adverts, action) => {
   switch (action.type) {
     case LOAD_ADVERTS_SUCCESS:
-      return { loaded: true, data: action.payload };  
+      return { loaded: true, data: action.payload };
     case LOAD_ADVERT_SUCCESS:
+    case CREATE_ADVERT_SUCCESS:
       console.log("I reached the reducer");
-      return { ...advertsState, data: [...advertsState.data, action.payload] };
+      return { ...advertsState, data: [...advertsState.data, action.payload] };   
     default:
       return advertsState;
   }
