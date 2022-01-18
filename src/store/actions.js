@@ -6,15 +6,13 @@ import {
   loadedSelector,
 } from "./selectors";
 import {
-  // AUTH_LOGIN,
-  AUTH_LOGOUT,
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
+  AUTH_LOGOUT,
   LOAD_ADVERTS_REQUEST,
   LOAD_ADVERTS_SUCCESS,
   LOAD_ADVERTS_FAILURE,
-  // ADVERTS_LOADED,
   LOAD_ADVERT_REQUEST,
   LOAD_ADVERT_SUCCESS,
   LOAD_ADVERT_FAILURE,
@@ -27,13 +25,6 @@ import {
   UI_RESET_ERROR,
 } from "./types";
 
-// import { login } from "../components/auth/service";
-
-// export const authLogin = () => {
-//   return {
-//     type: AUTH_LOGIN,
-//   };
-// };
 
 export const authLoginRequest = () => {
   return {
@@ -55,11 +46,10 @@ export const authLoginFailure = (error) => {
   };
 };
 
-//This is a thunk-function creator
-//esta es una acción de tipo función, llega primero al middleware externo, no a los reducers; gracias a 'thunk', la función recibe dispatch y getState
+
 export const authLogin = ({ remember, ...credentials }, location) => {
   return async (dispatch, getState, { api, history }) => {
-    dispatch(authLoginRequest()); //esta acción, al ser ya un objeto, si le llegará a los reducers, pero pasará primero por los envoltorios de dispatch
+    dispatch(authLoginRequest()); 
     try {
       await api.auth.login(remember, credentials);
       dispatch(authLoginSuccess());
@@ -98,12 +88,7 @@ export const loadAdvertsFailure = (error) => {
   };
 };
 
-// export const advertsLoaded = (adverts) => {
-//   return {
-//     type: ADVERTS_LOADED,
-//     payload: adverts,
-//   };
-// };
+
 
 export const loadAdverts = () => {
   return async (dispatch, getState, { api }) => {
@@ -188,7 +173,7 @@ export const createAdvert = (input) => {
       dispatch(createAdvertSuccess(advert));
       history.push(`/adverts/${advert.id}`);
     } catch (error) {
-      // dispatch(createAdvertFailure(error))
+      dispatch(createAdvertFailure(error))
     }
   };
 };
@@ -224,7 +209,7 @@ export const deleteAdvert = (advertId) => {
       console.log("estado: ", getState().adverts);
       history.push("/");
     } catch (error) {
-      // dispatch(deleteAdvertFailure(error));
+      dispatch(deleteAdvertFailure(error));
     }
   };
 };

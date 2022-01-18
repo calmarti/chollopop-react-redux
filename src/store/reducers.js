@@ -1,19 +1,21 @@
 import {
-  // AUTH_LOGIN,
-  AUTH_LOGOUT,
-  ADVERTS_LOADED,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_REQUEST,
-  UI_RESET_ERROR,
+  AUTH_LOGOUT,
+  AUTH_LOGIN_FAILURE,
   LOAD_ADVERTS_REQUEST,
   LOAD_ADVERTS_SUCCESS,
+  LOAD_ADVERTS_FAILURE,
   LOAD_ADVERT_REQUEST,
   LOAD_ADVERT_SUCCESS,
+  LOAD_ADVERT_FAILURE,
   CREATE_ADVERT_REQUEST,
   CREATE_ADVERT_SUCCESS,
+  CREATE_ADVERT_FAILURE,
   DELETE_ADVERT_REQUEST,
   DELETE_ADVERT_SUCCESS,
   DELETE_ADVERT_FAILURE,
+  UI_RESET_ERROR,
 } from "./types";
 
 const defaultState = {
@@ -21,20 +23,6 @@ const defaultState = {
   adverts: { loaded: false, data: [] },
   ui: { isLoading: false, error: null },
 };
-
-// export const reducer = (state = defaultState, action) => {
-//   //notar que, como el reducer debe ser función pura, no modifico el state (uso spread operator)
-//   switch (action.type) {
-//     case AUTH_LOGIN:
-//       return { ...state, auth: true };
-//     case AUTH_LOGOUT:
-//       return { ...state, auth: false };
-//     case ADVERTS_LOADED:
-//       return { ...state, adverts: action.payload };
-//     default:
-//       return state;
-//   }
-// };
 
 export const auth = (authState = defaultState.auth, action) => {
   switch (action.type) {
@@ -95,13 +83,3 @@ export const adverts = (advertsState = defaultState.adverts, action) => {
       return advertsState;
   }
 };
-
-// combineReducer hecho "a mano"
-// const combinedReducer = (state = defaultState, action) => {
-//   return {
-//     auth: auth(state.auth, action),
-//     adverts: adverts(state.adverts, action),
-//   };
-// };
-
-//export default combineReducers = ({auth: auth, adverts: adverts})   //método importado de redux, recibe un objeto cuya forma es igual a la de mi estado
