@@ -16,6 +16,9 @@ import {
   CREATE_ADVERT_REQUEST,
   CREATE_ADVERT_SUCCESS,
   CREATE_ADVERT_FAILURE,
+  DELETE_ADVERT_FAILURE,
+  DELETE_ADVERT_REQUEST,
+  DELETE_ADVERT_SUCCESS,
   UI_RESET_ERROR,
 } from "./types";
 
@@ -182,6 +185,40 @@ export const createAdvert = (input) => {
       history.push(`/adverts/${advert.id}`);
     } catch (error) {
       // dispatch(createAdvertFailure(error))
+    }
+  };
+};
+
+export const deleteAdvertRequest = () => {
+  return {
+    type: DELETE_ADVERT_REQUEST,
+  };
+};
+
+export const deleteAdvertSuccess = (advertId) => {
+  return {
+    type: DELETE_ADVERT_SUCCESS,
+    payload: advertId,
+  };
+};
+
+export const deleteAdvertFailure = (error) => {
+  return {
+    type: DELETE_ADVERT_FAILURE,
+    error: true,
+    payload: error,
+  };
+};
+
+export const deleteAdvert = (advertId) => {
+  return async (dispatch, getState, { api, history }) => {
+    // dispatch(deleteAdvertRequest());
+    try {
+      await dispatch(deleteAdvertSuccess(advertId));
+      history.push("/");
+    } catch (error) {
+      // dispatch(deleteAdvertFailure(error))
+      console.log(error);
     }
   };
 };
