@@ -4,23 +4,19 @@ import { Redirect, useParams, useHistory } from "react-router-dom";
 import { connect, useDispatch, useSelector, useStore } from "react-redux";
 import Layout from "../../layout";
 import AdvertDetail from "./AdvertDetail";
-import { /* getAdvert,  */ deleteAdvert } from "../service";
+// import { /* getAdvert,  */ deleteAdvert } from "../service";
 // import useQuery from "../../../hooks/useQuery";
-import useMutation from "../../../hooks/useMutation";
+// import useMutation from "../../../hooks/useMutation";
 import {
   advertSelector,
   advertsSelector,
   uiSelector,
 } from "../../../store/selectors";
-import { loadAdvert } from "../../../store/actions";
+import { loadAdvert, deleteAdvert } from "../../../store/actions";
 
-//TODO: Opciones:
-//0.- crear un 'advert' por defecto que permita el primer renderizado: esto arroja SIEMPRE el loop inifito de dispatches
-//1.- ver resto de la clase 4 a ver si me ilumina
-//2.- useStore y luego getStore para leer el state directamente
-//3.- stackoverflow y afines
 
-function AdvertPage({ advert, ui,  getAdvert, history }) {
+
+function AdvertPage({ advert, ui,  getAdvert, handleDelete }) {
   const { advertId } = useParams();
   const { error, isLoading } = ui
   console.log(advertId);
@@ -57,14 +53,13 @@ function AdvertPage({ advert, ui,  getAdvert, history }) {
   // const getAdvertById = useCallback(() => getAdvert(advertId), [advertId]);
   // const { isLoading, error, data: advert } = useQuery(getAdvertById);
 
-  const mutation = useMutation(deleteAdvert);
+  // const mutation = useMutation(deleteAdvert);
 
 
-  //TODO: llevar el borrado a redux
 
-  const handleDelete = () => {
-    mutation.execute(advertId).then(() => history.push("/"));
-  };
+  // const handleDelete = () => {
+  //   mutation.execute(advertId).then(() => history.push("/"));
+  // };
 
 
   if (error?.statusCode === 401 /* || mutation.error?.statusCode === 401 */) {
@@ -77,7 +72,7 @@ function AdvertPage({ advert, ui,  getAdvert, history }) {
 
   return (
     <Layout>
-      {advert && <AdvertDetail {...advert} /* onDelete={handleDelete} */ />}
+      {advert && <AdvertDetail {...advert} onDelete={handleDelete} />}
     </Layout>
   );
 }
@@ -98,8 +93,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getAdvert: () =>
-      dispatch(loadAdvert(ownProps.match.params.advertId)),
+    getAdvert: () => dispatch(loadAdvert(ownProps.match.params.advertId)),
+    handleDelete: ()=> dispatch(deleteAdvert(ownProps.match.params.advertId))
   };
 };
 

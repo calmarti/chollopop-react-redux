@@ -4,16 +4,16 @@ import {
   ADVERTS_LOADED,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_REQUEST,
-  // AUTH_LOGIN_FAILURE,
   UI_RESET_ERROR,
   LOAD_ADVERTS_REQUEST,
   LOAD_ADVERTS_SUCCESS,
-  // LOAD_ADVERTS_FAILURE,
   LOAD_ADVERT_REQUEST,
   LOAD_ADVERT_SUCCESS,
-  // LOAD_ADVERT_FAILURE,
+  CREATE_ADVERT_REQUEST,
   CREATE_ADVERT_SUCCESS,
+  DELETE_ADVERT_REQUEST,
   DELETE_ADVERT_SUCCESS,
+  DELETE_ADVERT_FAILURE,
 } from "./types";
 
 const defaultState = {
@@ -58,6 +58,8 @@ export const ui = (uiState = defaultState.ui, action) => {
     case AUTH_LOGIN_REQUEST:
     case LOAD_ADVERTS_REQUEST:
     case LOAD_ADVERT_REQUEST:
+    case CREATE_ADVERT_REQUEST:
+    case DELETE_ADVERT_REQUEST:
       return {
         isLoading: true,
         error: null,
@@ -86,9 +88,9 @@ export const adverts = (advertsState = defaultState.adverts, action) => {
     case LOAD_ADVERT_SUCCESS:
     case CREATE_ADVERT_SUCCESS:
       console.log("I reached the reducer");
-      return { ...advertsState, data: [...advertsState.data, action.payload] };   
+      return { ...advertsState, data: [...advertsState.data, action.payload] };
     case DELETE_ADVERT_SUCCESS:
-      return 
+      return { ...advertsState, data: action.payload };
     default:
       return advertsState;
   }

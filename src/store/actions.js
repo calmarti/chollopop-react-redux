@@ -1,5 +1,10 @@
 import { advert } from "../components/adverts/propTypes";
-import { advertSelector, advertsSelector, deleteSelector, loadedSelector } from "./selectors";
+import {
+  advertSelector,
+  advertsSelector,
+  deleteAdvertSelector,
+  loadedSelector,
+} from "./selectors";
 import {
   // AUTH_LOGIN,
   AUTH_LOGOUT,
@@ -16,9 +21,9 @@ import {
   CREATE_ADVERT_REQUEST,
   CREATE_ADVERT_SUCCESS,
   CREATE_ADVERT_FAILURE,
-  DELETE_ADVERT_FAILURE,
   DELETE_ADVERT_REQUEST,
   DELETE_ADVERT_SUCCESS,
+  DELETE_ADVERT_FAILURE,
   UI_RESET_ERROR,
 } from "./types";
 
@@ -110,7 +115,6 @@ export const loadAdverts = () => {
     try {
       const adverts = await api.adverts.getAdverts();
       dispatch(loadAdvertsSuccess(adverts));
-      //console.log(adverts);
     } catch (error) {
       dispatch(loadAdvertsFailure(error));
     }
@@ -149,8 +153,8 @@ export const loadAdvert = (advertId) => {
       const advert = await api.adverts.getAdvert(advertId);
       dispatch(loadAdvertSuccess(advert));
     } catch (error) {
-      dispatch(loadAdvertFailure(error)); //OJO: "este caso de error puede ser importante de cara a la práctica"ç
-      // console.log('error', error);
+      dispatch(loadAdvertFailure(error)); //OJO: "este caso de error puede ser importante de cara a la práctica"
+      
     }
   };
 };
@@ -179,7 +183,7 @@ export const createAdvertFailure = (error) => {
 export const createAdvert = (input) => {
   return async (dispatch, getState, { api, history }) => {
     try {
-      // dispatch(createAdvertRequest());
+      dispatch(createAdvertRequest());
       const advert = await api.adverts.createAdvert(input);
       dispatch(createAdvertSuccess(advert));
       history.push(`/adverts/${advert.id}`);
@@ -195,10 +199,10 @@ export const deleteAdvertRequest = () => {
   };
 };
 
-export const deleteAdvertSuccess = () => {
+export const deleteAdvertSuccess = (advertsMinusOne) => {
   return {
     type: DELETE_ADVERT_SUCCESS,
-    // payload: advertId,
+    payload: advertsMinusOne,
   };
 };
 
@@ -212,15 +216,15 @@ export const deleteAdvertFailure = (error) => {
 
 export const deleteAdvert = (advertId) => {
   return async (dispatch, getState, { api, history }) => {
-    // dispatch(deleteAdvertRequest());
     try {
+      // dispatch(deleteAdvertRequest());
+      const advertsMinusOne = deleteAdvertSelector(getState(), advertId);
       await api.adverts.deleteAdvert(advertId);
-      deleteSelector(getState(), advertId)
-      dispatch(deleteAdvertSuccess());
+      dispatch(deleteAdvertSuccess(advertsMinusOne));
+      console.log("estado: ", getState().adverts);
       history.push("/");
     } catch (error) {
-      // dispatch(deleteAdvertFailure(error))
-      console.log(error);
+      // dispatch(deleteAdvertFailure(error));
     }
   };
 };
