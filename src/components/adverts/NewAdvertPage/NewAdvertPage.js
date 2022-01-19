@@ -8,13 +8,7 @@ import NewAdvertForm from "./NewAdvertForm";
 import useMutation from "../../../hooks/useMutation";
 
 function NewAdvertPage({ history }) {
-  // const mutation = useMutation(createAdvert);
 
-  // const onSubmit = newAdvert => {
-  //   mutation
-  //     .execute(newAdvert)
-  //     .then(({ id }) => history.push(`/adverts/${id}`));
-  // };
 
   // if (mutation.error?.statusCode === 401) {    //TODO: adaptar esto
   //   return <Redirect to="/login" />;

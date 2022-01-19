@@ -3,10 +3,10 @@ import T from "prop-types";
 import useForm from "../../../hooks/useForm";
 import { InputFile } from "../../common";
 import SelectTags from "../SelectTags";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 import { createAdvert } from "../../../store/actions";
 
-//TODO: Hacer el disabled del butón de submit
+
 //TODO: llevar a redux la llamada al api de tags (coponente SelectTags)
 
 const validName = ({ name }) => name;
@@ -18,7 +18,6 @@ function NewAdvertForm({ onSubmit }) {
   const {
     formValue: advert,
     handleChange,
-    // handleSubmit,
     // validate,
   } = useForm({
     name: "",
@@ -34,6 +33,8 @@ function NewAdvertForm({ onSubmit }) {
     onSubmit(advert);
   };
 
+  const disabledButton = !name || !price || tags.length === 0;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input name="name" value={name} onChange={handleChange} />
@@ -42,11 +43,16 @@ function NewAdvertForm({ onSubmit }) {
         name="sale"
         checked={sale}
         onChange={handleChange}
-      /> Sale
+      />{" "}
+      Sale
       <input type="number" name="price" value={price} onChange={handleChange} />
       <SelectTags name="tags" value={tags} onChange={handleChange} />
       <InputFile name="photo" onChange={handleChange} />
-      <button /* disabled={!validate(validName, validPrice, validTags)} */> 
+      <button
+        disabled={
+          disabledButton
+        } /* disabled={!validate(validName, validPrice, validTags)} */
+      >
         Save
       </button>
     </form>
@@ -60,7 +66,6 @@ const mapDispatchtoProps = (dispatch, ownProps) => {
     },
   };
 };
-
 
 const connectedNewAdvertForm = connect(
   undefined,

@@ -11,8 +11,7 @@ function FiltersForm({ initialFilters, defaultFilters, prices, onFilter }) {
     formValue: filters,
     setFormValue,
     handleChange,
-    // handleSubmit,
-  } = useForm(initialFilters);
+    } = useForm(initialFilters);
   console.log("filters from form ", filters);
 
   const handleResetClick = () => {

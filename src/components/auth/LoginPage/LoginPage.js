@@ -7,6 +7,7 @@ import { uiSelector } from "../../../store/selectors";
 
 //TODO: falta arreglar validación en NewAdvertPage
 //TODO: borrar todo lo relacionado con validate en useForm, LoginForm, etc.
+//TODO: llevar a redux la llamada al api de tags 
 
 function LoginPage({ handleLogin, isLoading, error, resetError }) {
   return (
