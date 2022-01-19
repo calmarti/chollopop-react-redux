@@ -1,15 +1,12 @@
 import React from "react";
 import T from "prop-types";
-
-// import { useAuthContext } from '../context';
-// import { login } from "../service";
 import LoginForm from "./LoginForm";
-//import useMutation from "../../../hooks/useMutation";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { authLogin, uiResetError } from "../../../store/actions";
 import { uiSelector } from "../../../store/selectors";
 
 //TODO: falta arreglar validación en NewAdvertPage
+//TODO: borrar todo lo relacionado con validate en useForm, LoginForm, etc.
 
 function LoginPage({ handleLogin, isLoading, error, resetError }) {
   return (

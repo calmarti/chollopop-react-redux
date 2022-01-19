@@ -1,21 +1,23 @@
 import {
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_REQUEST,
-  AUTH_LOGOUT,
-  AUTH_LOGIN_FAILURE,
+
+  // AUTH_LOGIN_FAILURE,
   LOAD_ADVERTS_REQUEST,
   LOAD_ADVERTS_SUCCESS,
-  LOAD_ADVERTS_FAILURE,
+  // LOAD_ADVERTS_FAILURE,
   LOAD_ADVERT_REQUEST,
   LOAD_ADVERT_SUCCESS,
-  LOAD_ADVERT_FAILURE,
+  // LOAD_ADVERT_FAILURE,
   CREATE_ADVERT_REQUEST,
   CREATE_ADVERT_SUCCESS,
-  CREATE_ADVERT_FAILURE,
+  // CREATE_ADVERT_FAILURE,
   DELETE_ADVERT_REQUEST,
   DELETE_ADVERT_SUCCESS,
-  DELETE_ADVERT_FAILURE,
-  UI_RESET_ERROR,
+  // DELETE_ADVERT_FAILURE,
+  UI_RESET_ERROR,   //TODO: ¿esto de donde salió?
+  AUTH_LOGOUT_SUCCESS,
+  AUTH_LOGOUT_REQUEST,
 } from "./types";
 
 const defaultState = {
@@ -28,7 +30,7 @@ export const auth = (authState = defaultState.auth, action) => {
   switch (action.type) {
     case AUTH_LOGIN_SUCCESS:
       return true;
-    case AUTH_LOGOUT:
+    case AUTH_LOGOUT_SUCCESS:
       return false;
     default:
       return authState;
@@ -44,6 +46,7 @@ export const ui = (uiState = defaultState.ui, action) => {
   }
   switch (action.type) {
     case AUTH_LOGIN_REQUEST:
+    case AUTH_LOGOUT_REQUEST:
     case LOAD_ADVERTS_REQUEST:
     case LOAD_ADVERT_REQUEST:
     case CREATE_ADVERT_REQUEST:
@@ -53,6 +56,7 @@ export const ui = (uiState = defaultState.ui, action) => {
         error: null,
       };
     case AUTH_LOGIN_SUCCESS:
+    case AUTH_LOGOUT_SUCCESS:
     case LOAD_ADVERTS_SUCCESS:
     case LOAD_ADVERT_SUCCESS:
       return {

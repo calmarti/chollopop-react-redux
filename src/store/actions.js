@@ -1,15 +1,17 @@
-import { advert } from "../components/adverts/propTypes";
+
 import {
   loadAdvertSelector,
-  loadAdvertsSelector,
   deleteAdvertSelector,
   loadedSelector,
 } from "./selectors";
+
 import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
-  AUTH_LOGOUT,
+  AUTH_LOGOUT_REQUEST,
+  AUTH_LOGOUT_SUCCESS,
+  AUTH_LOGOUT_FAILURE,
   LOAD_ADVERTS_REQUEST,
   LOAD_ADVERTS_SUCCESS,
   LOAD_ADVERTS_FAILURE,
@@ -24,7 +26,6 @@ import {
   DELETE_ADVERT_FAILURE,
   UI_RESET_ERROR,
 } from "./types";
-
 
 export const authLoginRequest = () => {
   return {
@@ -46,10 +47,9 @@ export const authLoginFailure = (error) => {
   };
 };
 
-
 export const authLogin = ({ remember, ...credentials }, location) => {
   return async (dispatch, getState, { api, history }) => {
-    dispatch(authLoginRequest()); 
+    dispatch(authLoginRequest());
     try {
       await api.auth.login(remember, credentials);
       dispatch(authLoginSuccess());
@@ -61,9 +61,36 @@ export const authLogin = ({ remember, ...credentials }, location) => {
   };
 };
 
-export const authLogout = () => {
+export const authLogoutRequest = () => {
   return {
-    type: AUTH_LOGOUT,
+    type: AUTH_LOGOUT_REQUEST,
+  };
+};
+
+export const authLogoutSuccess = () => {
+  return {
+    type: AUTH_LOGOUT_SUCCESS,
+  };
+};
+
+export const authLogoutFailure = (error) => {
+  return {
+    type: AUTH_LOGOUT_FAILURE,
+    error: true,
+    payload: error,
+  };
+};
+
+export const authLogout = () => {
+  return async (dispatch, getState, { api, history }) => {
+    try {
+      dispatch(authLogoutRequest());
+      await api.auth.logout();
+      dispatch(authLogoutSuccess());
+      history.push("/login");
+    } catch (error) {
+      dispatch(authLogoutFailure());
+    }
   };
 };
 
@@ -88,10 +115,8 @@ export const loadAdvertsFailure = (error) => {
   };
 };
 
-
-
 export const loadAdverts = () => {
-  return async (dispatch, getState, { api }) => {
+  return async (dispatch, getState, { api, history }) => {
     const loaded = loadedSelector(getState());
     if (loaded) {
       return;
@@ -102,6 +127,9 @@ export const loadAdverts = () => {
       dispatch(loadAdvertsSuccess(adverts));
     } catch (error) {
       dispatch(loadAdvertsFailure(error));
+      if (error?.statusCode === 401) {
+        history.push('/login')
+      }
     }
   };
 };
@@ -139,7 +167,6 @@ export const loadAdvert = (advertId) => {
       dispatch(loadAdvertSuccess(advert));
     } catch (error) {
       dispatch(loadAdvertFailure(error)); //OJO: "este caso de error puede ser importante de cara a la práctica"
-      
     }
   };
 };
@@ -173,7 +200,7 @@ export const createAdvert = (input) => {
       dispatch(createAdvertSuccess(advert));
       history.push(`/adverts/${advert.id}`);
     } catch (error) {
-      dispatch(createAdvertFailure(error))
+      dispatch(createAdvertFailure(error));
     }
   };
 };
