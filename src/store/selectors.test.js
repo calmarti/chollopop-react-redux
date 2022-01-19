@@ -1,0 +1,4 @@
+
+describe("testing loadAdvertSelector", () => {
+
+})

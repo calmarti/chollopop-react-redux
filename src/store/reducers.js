@@ -20,7 +20,7 @@ import {
   AUTH_LOGOUT_REQUEST,
 } from "./types";
 
-const defaultState = {
+export const defaultState = {
   auth: false,
   adverts: { loaded: false, data: [] },
   ui: { isLoading: false, error: null },
@@ -79,7 +79,6 @@ export const adverts = (advertsState = defaultState.adverts, action) => {
       return { loaded: true, data: action.payload };
     case LOAD_ADVERT_SUCCESS:
     case CREATE_ADVERT_SUCCESS:
-      console.log("I reached the reducer");
       return { ...advertsState, data: [...advertsState.data, action.payload] };
     case DELETE_ADVERT_SUCCESS:
       return { ...advertsState, data: action.payload };

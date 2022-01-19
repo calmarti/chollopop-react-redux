@@ -5,9 +5,15 @@ import { connect } from "react-redux";
 import { authLogin, uiResetError } from "../../../store/actions";
 import { uiSelector } from "../../../store/selectors";
 
-//TODO: falta arreglar validación en NewAdvertPage
+//TODO: llevar las redirecciones a redux donde corresponda
 //TODO: borrar todo lo relacionado con validate en useForm, LoginForm, etc.
 //TODO: llevar a redux la llamada al api de tags 
+//TODO: refactorizar hooks (si los hubiere) en carpeta 'hooks/redux'
+//TODO: refactorizar fichero de actions en ficheros más pequeños en una carpeta 'actions'
+//TODO: limpieza y depuración final 
+//TODO: README.md (corto)
+//TODO: si hay tiempo mirar que cosas de la clase 5 se pueden incorporar (¿un useReducer?)
+
 
 function LoginPage({ handleLogin, isLoading, error, resetError }) {
   return (

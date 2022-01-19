@@ -103,7 +103,7 @@ export const loadAdvertsRequest = () => {
 export const loadAdvertsSuccess = (adverts) => {
   return {
     type: LOAD_ADVERTS_SUCCESS,
-    payload: adverts,
+    payload: adverts, 
   };
 };
 
