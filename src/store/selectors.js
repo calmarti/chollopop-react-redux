@@ -1,7 +1,7 @@
 export const isLoggedSelector = (state) => state.auth;
-export const advertsSelector = (state) => state.adverts.data;
+export const loadAdvertsSelector = (state) => state.adverts.data;
 export const loadedSelector = (state) => state.adverts.loaded;
-export const advertSelector = (state, advertId) =>
+export const loadAdvertSelector = (state, advertId) =>
   state.adverts.data.find((advert) => advert.id === advertId);
   
 export const deleteAdvertSelector = (state, advertId) =>

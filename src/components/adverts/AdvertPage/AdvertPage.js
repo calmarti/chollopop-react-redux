@@ -8,8 +8,8 @@ import AdvertDetail from "./AdvertDetail";
 // import useQuery from "../../../hooks/useQuery";
 // import useMutation from "../../../hooks/useMutation";
 import {
-  advertSelector,
-  advertsSelector,
+  loadAdvertSelector,
+  loadAdvertsSelector,
   uiSelector,
 } from "../../../store/selectors";
 import { loadAdvert, deleteAdvert } from "../../../store/actions";
@@ -77,16 +77,10 @@ function AdvertPage({ advert, ui,  getAdvert, handleDelete }) {
   );
 }
 
-// const mapStateToProps = (state, ownProps) => {
-//   return {
-//     advert: advertsSelector(state),
-//     ui: uiSelector(state)
-//   };
-// };
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    advert: advertSelector(state, ownProps.match.params.advertId),
+    advert: loadAdvertSelector(state, ownProps.match.params.advertId),
     ui: uiSelector(state),
   };
 };
@@ -105,4 +99,3 @@ const ConnectedAdvertPage = connect(
 
 export default ConnectedAdvertPage;
 
-// export default AdvertPage;

@@ -7,13 +7,6 @@ import App from "./components/app";
 import Root from "./Root";
 import configureStore from "./store";
 import { createBrowserHistory } from "history";
-// import { authLogin } from "./store/actions";
-// import { authLogout } from "./store/actions";
-
-// const render = () => console.log(store.getState());
-// store.subscribe(render);
-// store.dispatch(authLogin());
-// store.dispatch(authLogout());
 
 //TODO: no olvidar implementar el spinner (isLoading)
 //TODO: hacer la redireccion de los 401, 404 en los thunks y pasarle el error como prop a los componentes SOLO si lo van a pintar

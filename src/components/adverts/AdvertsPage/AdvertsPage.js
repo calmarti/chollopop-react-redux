@@ -11,7 +11,7 @@ import storage from "../../../utils/storage";
 import { defaultFilters, filterAdverts } from "./filters";
 // import useQuery from "../../../hooks/useQuery";
 import { loadAdverts } from "../../../store/actions";
-import { advertsSelector } from "../../../store/selectors";
+import { loadAdvertsSelector } from "../../../store/selectors";
 
 const getFilters = () => storage.get("filters")  || defaultFilters;
 const saveFilters = (filters) => storage.set("filters", filters);
@@ -38,7 +38,7 @@ function AdvertsPage() {
 
 
   const useLoadAdverts = () => {    //TODO: llevar a /hooks o a /react-redux-hooks
-    const adverts = useSelector(advertsSelector);
+    const adverts = useSelector(loadAdvertsSelector);
     return adverts;
   };
 

@@ -9,24 +9,21 @@ function LoginForm({ handleLogin, isLoading }) {
   const {
     formValue: credentials,
     handleChange,
-    // handleSubmit,
     // validate,
   } = useForm({
     email: "",
     password: "",
     remember: false,
   });
-  const { email, password ,  remember  } = credentials;
- 
+  const { email, password, remember } = credentials;
 
-  const handleSubmit = (ev) => {  
+  const handleSubmit = (ev) => {
     ev.preventDefault();
-    handleLogin(credentials);   //TODO: problem: el AUTH_LOGIN_REQUEST no pasaba el 'isLoading' a true; al cambiar ...state por el nuevo estado se arregló, ¿porqué?
-
+    handleLogin(credentials); //TODO: problem: el AUTH_LOGIN_REQUEST no pasaba el 'isLoading' a true; al cambiar ...state por el nuevo estado se arregló, ¿porqué?
   };
 
-  const disabledButton = isLoading || !credentials.email || !credentials.password  //TODO: comprobar que esto funciona
-
+  const disabledButton =
+    isLoading || !credentials.email || !credentials.password;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -37,13 +34,21 @@ function LoginForm({ handleLogin, isLoading }) {
         value={password}
         onChange={handleChange}
       />
-      {<input
-        type="checkbox"
-        name="remember"
-        checked={remember}
-        onChange={handleChange}
-      />}
-      <button /* type='submit' */ /* disabled={!validate(validEmail, validPassword)} */ disabled={disabledButton}>Login</button>
+      {
+        <input
+          type="checkbox"
+          name="remember"
+          checked={remember}
+          onChange={handleChange}
+        />
+      }
+      <button
+         /* disabled={!validate(validEmail, validPassword)} */ disabled={
+          disabledButton
+        }
+      >
+        Login
+      </button>
     </form>
   );
 }

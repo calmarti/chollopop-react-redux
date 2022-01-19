@@ -29,10 +29,6 @@ function useForm(initialFormValue) {
     updateFormValue(ev.target.name, valueGetter(ev.target));
   };
 
-  // const handleSubmit = onSubmit => ev => {
-  //   ev.preventDefault();
-  //   onSubmit(formValue);
-  // };
 
   // const validate = (...validations) =>
   //   validations.map(validation => validation(formValue)).every(valid => valid);
@@ -41,7 +37,7 @@ function useForm(initialFormValue) {
     formValue,
     setFormValue,
     handleChange,
-    // handleSubmit,
+  
     // validate,
   };
 }

@@ -1,7 +1,7 @@
 import { advert } from "../components/adverts/propTypes";
 import {
-  advertSelector,
-  advertsSelector,
+  loadAdvertSelector,
+  loadAdvertsSelector,
   deleteAdvertSelector,
   loadedSelector,
 } from "./selectors";
@@ -129,7 +129,7 @@ export const loadAdvertFailure = (error) => {
 
 export const loadAdvert = (advertId) => {
   return async (dispatch, getState, { api }) => {
-    const advert = advertSelector(getState(), advertId);
+    const advert = loadAdvertSelector(getState(), advertId);
     if (advert) {
       return;
     }

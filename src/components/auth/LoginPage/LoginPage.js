@@ -9,37 +9,9 @@ import { connect, useDispatch } from "react-redux";
 import { authLogin, uiResetError } from "../../../store/actions";
 import { uiSelector } from "../../../store/selectors";
 
-function LoginPage({
-  // history,
-  // location,
-  handleLogin,
-  isLoading,
-  error,
-  resetError,
-}) {
-  // const { handleLogin } = useAuthContext();
+//TODO: falta arreglar validación en NewAdvertPage
 
-  // const { isLoading, error, execute, resetError } = useMutation(login);
-
-  //TODO: a tener en cuenta: "cuando demos las acciones asíncronos habrá que mejorar toda la parte de auth"
-
-  //TODO: estas tres líneas deben ir en un custom hook
-  // const dispatch = useDispatch();
-  // const handleLogin = (authLogin) => {
-  //   dispatch(authLogin());
-  // };
-
-  // const handleSubmit = (event, credentials) => {
-  //     event.preventDefault();
-  //     handleLogin(credentials);
-  // execute(credentials)
-  //   .then(() => handleLogin())
-  //   .then(() => {
-
-  // const { from } = location.state || { from: { pathname: "/" } };
-  // history.replace(from);
-  // };
-
+function LoginPage({ handleLogin, isLoading, error, resetError }) {
   return (
     <div>
       <LoginForm handleLogin={handleLogin} isLoading={isLoading} />
@@ -54,11 +26,9 @@ function LoginPage({
   );
 }
 
-/* LoginPage.propTypes = {
-  location: T.shape({ state: T.shape({ from: T.object.isRequired }) })
-    .isRequired,
-  history: T.shape({ replace: T.func.isRequired }).isRequired,
-}; */
+LoginPage.propTypes = {
+  handleLogin: T.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -66,12 +36,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     resetError: () => dispatch(uiResetError()),
   };
 };
-// alternativamente y de forma abreviada:
-// const mapDispatchToProps = (dispatch, credentials => {
-//   return {
-//     handleLogin: authLogin
-//   };
-// };
 
 const mapStateToProps = (state) => {
   return uiSelector(state);
