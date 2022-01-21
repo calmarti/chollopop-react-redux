@@ -1,6 +1,7 @@
 import React from 'react';
 
 const getValueByType = {
+
   checkbox: ({ checked }) => checked,
 
   number: ({ value }) => Number(value),

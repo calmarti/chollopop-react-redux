@@ -34,16 +34,16 @@ function LoginForm({ handleLogin, isLoading }) {
         value={password}
         onChange={handleChange}
       />
-      {
-        <input
-          type="checkbox"
-          name="remember"
-          checked={remember}
-          onChange={handleChange}
-        />
-      }
+
+      <input
+        type="checkbox"
+        name="remember"
+        checked={remember}
+        onChange={handleChange}
+      />
+
       <button
-         /* disabled={!validate(validEmail, validPassword)} */ disabled={
+        /* disabled={!validate(validEmail, validPassword)} */ disabled={
           disabledButton
         }
       >

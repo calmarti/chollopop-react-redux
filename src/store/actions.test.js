@@ -1,5 +1,9 @@
 import { authLogin, authLoginRequest, loadAdvertsSuccess } from "./actions";
-import { AUTH_LOGIN_REQUEST, LOAD_ADVERTS_SUCCESS } from "./types";
+import {
+  AUTH_LOGIN_FAILURE,
+  AUTH_LOGIN_REQUEST,
+  LOAD_ADVERTS_SUCCESS,
+} from "./types";
 
 describe("testing authLoginRequest action creator", () => {
   test("should return an object with type AUTH_LOGIN_REQUEST", () => {
@@ -16,7 +20,7 @@ describe("testing authLogin action creator", () => {
     mockedEmail: "mockedEmail",
     mockedPassword: "mockedPassword",
   };
-  const location = { state: "" };
+  const location = { state: undefined };
   const action = authLogin({ remember, ...credentials }, location);
 
   describe("when login api resolves", () => {
@@ -29,29 +33,45 @@ describe("testing authLogin action creator", () => {
       expect(dispatch).toHaveBeenCalledWith({ type: "AUTH_LOGIN_REQUEST" });
     });
     test("should execute api.auth.login", () => {
-      // const {remember, mockedEmail, mockedPassword} = credentials;
       action(dispatch, getState, { api, history });
       expect(api.auth.login).toHaveBeenCalledWith(remember, credentials);
-      //TODO: arreglar: expect(api.auth.login(remember, credentials)).resolves();
+      //TODO: intentar hacer: expect(api.auth.login(remember, credentials)).resolves();
     });
 
     //TODO: usar otra de las formas para promesas del módulo de TDD (distinta a async-await)
     test("should dispatch action AUTH_LOGIN_SUCCESS", async () => {
       await action(dispatch, getState, { api, history });
-      expect(dispatch).toHaveBeenNthCalledWith(2, { type: "AUTH_LOGIN_SUCCESS" });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: "AUTH_LOGIN_SUCCESS",
+      });
     });
 
-//test("should redirect to "/", ()=> {
+    test("should redirect to '/'", async () => {
+      await action(dispatch, getState, { api, history });
+      expect(history.replace).toHaveBeenCalledWith({ pathname: "/" });
+    });
+  });
 
-//})
+  describe("when login api rejects", () => {
+    const dispatch = jest.fn();
+    const getState = () => {};
+    const error = {error: "error"};
+    const api = { auth: { login: jest.fn() } };
+  
 
-  // describe("when login api rejects", () => {
+    test("should dispatch action AUTH_LOGIN_FAILURE", async () => {
+      api.auth.login.mockRejectedValue(error); 
+      await action(dispatch, getState, { api, history });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: AUTH_LOGIN_FAILURE,
+        error: true,
+        payload: error,
+      });
+    });
 
 
   });
 });
-
-
 
 describe("testing loadAdvertsSuccess action creator", () => {
   test("should return an object with a type and a payload", () => {
@@ -64,3 +84,5 @@ describe("testing loadAdvertsSuccess action creator", () => {
     expect(result).toEqual(expected);
   });
 });
+
+//TODO: hacer el test de la acción-función loadAdvert modelado en el de authLogin
