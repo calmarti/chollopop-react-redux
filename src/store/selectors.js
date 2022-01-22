@@ -8,3 +8,5 @@ export const deleteAdvertSelector = (state, advertId) =>
   state.adverts.data.filter((advert) => advert.id !== advertId);
 
 export const uiSelector = (state) => state.ui;
+
+export const tagsSelector = (state) => state.tags;

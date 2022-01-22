@@ -10,6 +10,7 @@ const mapAdvert = ({ photo, ...advert }) => ({
 
 export const getTags = () => {
   return client.get(`${advertsPath}/tags`);
+
 };
 
 export const getAdverts = () => {

@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPage snapshot tests snapshot test with prop 'isLoading' equal to false, prop 'error' equal to null 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <label>
+    <span>
+      Email
+    </span>
+    <input
+      name="email"
+      onChange={[Function]}
+      value=""
+    />
+  </label>
+  <label>
+    <span>
+      Password
+    </span>
+    <input
+      name="password"
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+  </label>
+  <label>
+    <span>
+      Remember password
+    </span>
+    <input
+      checked={false}
+      name="remember"
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </label>
+  <button
+    disabled={true}
+  >
+    Login
+  </button>
+</form>
+`;
+
+exports[`LoginPage snapshot tests snapshot test with prop 'isLoading' equal to true, prop 'error' equal to null 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <label>
+    <span>
+      Email
+    </span>
+    <input
+      name="email"
+      onChange={[Function]}
+      value=""
+    />
+  </label>
+  <label>
+    <span>
+      Password
+    </span>
+    <input
+      name="password"
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+  </label>
+  <label>
+    <span>
+      Remember password
+    </span>
+    <input
+      checked={false}
+      name="remember"
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </label>
+  <button
+    disabled={true}
+  >
+    Login
+  </button>
+</form>
+`;
+
+exports[`snapshot test with prop 'isLoading' equal to false, prop 'error' different from null 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <label>
+    <span>
+      Email
+    </span>
+    <input
+      name="email"
+      onChange={[Function]}
+      value=""
+    />
+  </label>
+  <label>
+    <span>
+      Password
+    </span>
+    <input
+      name="password"
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+  </label>
+  <label>
+    <span>
+      Remember password
+    </span>
+    <input
+      checked={false}
+      name="remember"
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </label>
+  <button
+    disabled={true}
+  >
+    Login
+  </button>
+</form>
+`;

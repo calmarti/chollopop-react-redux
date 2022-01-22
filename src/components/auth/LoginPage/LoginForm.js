@@ -2,14 +2,10 @@ import T from "prop-types";
 
 import useForm from "../../../hooks/useForm";
 
-// const validEmail = ({ email }) => email;
-// const validPassword = ({ password }) => password;
-
-function LoginForm({ handleLogin, isLoading }) {
+function LoginForm({ onLogin, isLoading }) {
   const {
     formValue: credentials,
-    handleChange,
-    // validate,
+    setFormValue,
   } = useForm({
     email: "",
     password: "",
@@ -17,33 +13,52 @@ function LoginForm({ handleLogin, isLoading }) {
   });
   const { email, password, remember } = credentials;
 
+  //función 'handleChange' sólo para LoginForm para poder hacer eltest debido al bug de React-Testing-Library
+  const handleChange = ({ target: { name, value} }) => {
+    setFormValue((currentCredentials) => ({
+      ...currentCredentials,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    handleLogin(credentials); //TODO: problem: el AUTH_LOGIN_REQUEST no pasaba el 'isLoading' a true; al cambiar ...state por el nuevo estado se arregló, ¿porqué?
+    onLogin(credentials); 
   };
+
 
   const disabledButton =
     isLoading || !credentials.email || !credentials.password;
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="email" value={email} onChange={handleChange} />
-      <input
-        type="password"
-        name="password"
-        value={password}
-        onChange={handleChange}
-      />
+      <label>
+        <span>Email</span>
+        <input name="email" value={email} onChange={handleChange} />
+      </label>
 
-      <input
-        type="checkbox"
-        name="remember"
-        checked={remember}
-        onChange={handleChange}
-      />
+      <label>
+        <span>Password</span>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+        />
+      </label>
+
+      <label>
+        <span>Remember password</span>
+        <input
+          type="checkbox"
+          name="remember"
+          checked={remember}
+          onChange={handleChange}
+        />
+      </label>
 
       <button
-        /* disabled={!validate(validEmail, validPassword)} */ disabled={
+        disabled={
           disabledButton
         }
       >
@@ -54,7 +69,7 @@ function LoginForm({ handleLogin, isLoading }) {
 }
 
 LoginForm.propTypes = {
-  handleLogin: T.func.isRequired,
+  onLogin: T.func.isRequired,
 };
 
 export default LoginForm;

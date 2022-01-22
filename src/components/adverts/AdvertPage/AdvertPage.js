@@ -10,9 +10,7 @@ import T from "prop-types";
 function AdvertPage({ advert, ui, getAdvert, handleDelete }) {
   const { advertId } = useParams();
   const { error, isLoading } = ui;
-  console.log(advertId);
-
-  //const advertId = match.params.advertId;
+ 
 
   useEffect(() => {
     getAdvert();
@@ -35,7 +33,7 @@ function AdvertPage({ advert, ui, getAdvert, handleDelete }) {
 
 
 AdvertPage.propTypes = {
-  ui: T.object.isRequired,        //TODO: verificar que este funciona
+  ui: T.object.isRequired,        
   getAdvert: T.func.isRequired,
   handleDelete: T.func.isRequired,
 }

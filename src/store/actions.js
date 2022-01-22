@@ -1,4 +1,3 @@
-
 import {
   loadAdvertSelector,
   deleteAdvertSelector,
@@ -24,6 +23,8 @@ import {
   DELETE_ADVERT_REQUEST,
   DELETE_ADVERT_SUCCESS,
   DELETE_ADVERT_FAILURE,
+  LOAD_TAGS_SUCCESS,
+  LOAD_TAGS_FAILURE,
   UI_RESET_ERROR,
 } from "./types";
 
@@ -103,7 +104,7 @@ export const loadAdvertsRequest = () => {
 export const loadAdvertsSuccess = (adverts) => {
   return {
     type: LOAD_ADVERTS_SUCCESS,
-    payload: adverts, 
+    payload: adverts,
   };
 };
 
@@ -128,7 +129,7 @@ export const loadAdverts = () => {
     } catch (error) {
       dispatch(loadAdvertsFailure(error));
       if (error?.statusCode === 401) {
-        history.push('/login')
+        history.push("/login");
       }
     }
   };
@@ -201,6 +202,9 @@ export const createAdvert = (input) => {
       history.push(`/adverts/${advert.id}`);
     } catch (error) {
       dispatch(createAdvertFailure(error));
+      if (error.statusCode === 401) {
+        history.push("/");
+      }
     }
   };
 };
@@ -237,6 +241,32 @@ export const deleteAdvert = (advertId) => {
       history.push("/");
     } catch (error) {
       dispatch(deleteAdvertFailure(error));
+    }
+  };
+};
+
+export const loadTagsSuccess = (tags) => {
+  return {
+    type: LOAD_TAGS_SUCCESS,
+    payload: tags,
+  };
+};
+
+export const loadTagsFailure = (error) => {
+  return {
+    type: LOAD_TAGS_FAILURE,
+    error: true,
+    payload: error,
+  };
+};
+
+export const loadTags = () => {
+  return async (dispatch, getState, { api }) => {
+    try {
+      const tags = await api.adverts.getTags();
+      dispatch(loadTagsSuccess(tags));
+    } catch (error) {
+      dispatch(loadTagsFailure(error));
     }
   };
 };

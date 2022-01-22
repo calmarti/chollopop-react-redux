@@ -1,29 +1,25 @@
 import {
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_REQUEST,
-
-  // AUTH_LOGIN_FAILURE,
   LOAD_ADVERTS_REQUEST,
   LOAD_ADVERTS_SUCCESS,
-  // LOAD_ADVERTS_FAILURE,
   LOAD_ADVERT_REQUEST,
   LOAD_ADVERT_SUCCESS,
-  // LOAD_ADVERT_FAILURE,
   CREATE_ADVERT_REQUEST,
   CREATE_ADVERT_SUCCESS,
-  // CREATE_ADVERT_FAILURE,
   DELETE_ADVERT_REQUEST,
   DELETE_ADVERT_SUCCESS,
-  // DELETE_ADVERT_FAILURE,
-  UI_RESET_ERROR,   //TODO: ¿esto de donde salió?
+  UI_RESET_ERROR,
   AUTH_LOGOUT_SUCCESS,
   AUTH_LOGOUT_REQUEST,
+  LOAD_TAGS_SUCCESS,
 } from "./types";
 
 export const defaultState = {
   auth: false,
   adverts: { loaded: false, data: [] },
   ui: { isLoading: false, error: null },
+  tags: [],
 };
 
 export const auth = (authState = defaultState.auth, action) => {
@@ -84,5 +80,14 @@ export const adverts = (advertsState = defaultState.adverts, action) => {
       return { ...advertsState, data: action.payload };
     default:
       return advertsState;
+  }
+};
+
+export const tags = (tagsState = defaultState.tags, action) => {
+  switch (action.type) {
+    case LOAD_TAGS_SUCCESS:
+      return action.payload;
+    default:
+      return [tagsState];
   }
 };

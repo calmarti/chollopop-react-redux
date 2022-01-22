@@ -13,7 +13,6 @@ describe("testing authLoginRequest action creator", () => {
   });
 });
 
-//TODO: el test pasa pero hay que arreglar la recepción de parámetros en authLogin (actions.js) y probar si funciona toda la app
 describe("testing authLogin action creator", () => {
   const remember = false;
   const credentials = {
@@ -35,10 +34,8 @@ describe("testing authLogin action creator", () => {
     test("should execute api.auth.login", () => {
       action(dispatch, getState, { api, history });
       expect(api.auth.login).toHaveBeenCalledWith(remember, credentials);
-      //TODO: intentar hacer: expect(api.auth.login(remember, credentials)).resolves();
     });
 
-    //TODO: usar otra de las formas para promesas del módulo de TDD (distinta a async-await)
     test("should dispatch action AUTH_LOGIN_SUCCESS", async () => {
       await action(dispatch, getState, { api, history });
       expect(dispatch).toHaveBeenNthCalledWith(2, {
@@ -55,12 +52,11 @@ describe("testing authLogin action creator", () => {
   describe("when login api rejects", () => {
     const dispatch = jest.fn();
     const getState = () => {};
-    const error = {error: "error"};
+    const error = { error: "error" };
     const api = { auth: { login: jest.fn() } };
-  
 
     test("should dispatch action AUTH_LOGIN_FAILURE", async () => {
-      api.auth.login.mockRejectedValue(error); 
+      api.auth.login.mockRejectedValue(error);
       await action(dispatch, getState, { api, history });
       expect(dispatch).toHaveBeenNthCalledWith(2, {
         type: AUTH_LOGIN_FAILURE,
@@ -68,8 +64,6 @@ describe("testing authLogin action creator", () => {
         payload: error,
       });
     });
-
-
   });
 });
 

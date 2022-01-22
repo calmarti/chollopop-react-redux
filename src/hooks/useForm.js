@@ -2,6 +2,7 @@ import React from 'react';
 
 const getValueByType = {
 
+  
   checkbox: ({ checked }) => checked,
 
   number: ({ value }) => Number(value),
@@ -31,15 +32,11 @@ function useForm(initialFormValue) {
   };
 
 
-  // const validate = (...validations) =>
-  //   validations.map(validation => validation(formValue)).every(valid => valid);
-
   return {
     formValue,
     setFormValue,
     handleChange,
-  
-    // validate,
+
   };
 }
 

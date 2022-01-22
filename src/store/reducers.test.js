@@ -1,6 +1,7 @@
 import { adverts, defaultState } from "./reducers";
 import {
   CREATE_ADVERT_SUCCESS,
+  DELETE_ADVERT_SUCCESS,
   LOAD_ADVERTS_SUCCESS,
   LOAD_ADVERT_SUCCESS,
 } from "./types";
@@ -30,9 +31,11 @@ describe("testing adverts reducer", () => {
     expect(adverts(undefined, action)).toEqual(expected);
   });
 
-  //   test("should return  { ..state, data: action.payload } when action DELETE_ADVERT_SUCCESS is dispatched", () => {});
-  //   const action = { type: CREATE_ADVERT_SUCCESS, payload };
-  //   const expected = { ...state, data: action.payload };
+  test("should return  { ..state, data: action.payload } when action DELETE_ADVERT_SUCCESS is dispatched", () => {
+    const action = { type: DELETE_ADVERT_SUCCESS, payload };
+    const expected = { ...state, data: action.payload };
+    expect(adverts(undefined, action)).toEqual(expected);
+  });
 
   test("should return default state when unexpected action hits reducer", () => {
     const action = { type: "UNEXPECTED_ACTION" };
@@ -40,3 +43,4 @@ describe("testing adverts reducer", () => {
     expect(adverts(undefined, action)).toEqual(expected);
   });
 });
+
