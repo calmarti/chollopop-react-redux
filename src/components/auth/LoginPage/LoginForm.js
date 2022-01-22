@@ -13,7 +13,8 @@ function LoginForm({ onLogin, isLoading }) {
   });
   const { email, password, remember } = credentials;
 
-  //función 'handleChange' sólo para LoginForm para poder hacer eltest debido al bug de React-Testing-Library
+  //Nota: función 'handleChange' específica para LoginForm para poder hacer el test de React-Testing-Library
+
   const handleChange = ({ target: { name, value} }) => {
     setFormValue((currentCredentials) => ({
       ...currentCredentials,

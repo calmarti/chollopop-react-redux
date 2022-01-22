@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import Layout from "../../layout";
 import FiltersForm from "./FiltersForm";
@@ -9,37 +9,26 @@ import EmptyList from "./EmptyList";
 import storage from "../../../utils/storage";
 import { defaultFilters, filterAdverts } from "./filters";
 import { loadAdverts } from "../../../store/actions";
-import { loadAdvertsSelector } from "../../../store/selectors";
+import useLoadAdverts  from "../../../hooks/react-redux/useLoadAdverts";
 
-const getFilters = () => storage.get("filters")  || defaultFilters;
+const getFilters = () => storage.get("filters") || defaultFilters;
 const saveFilters = (filters) => storage.set("filters", filters);
 
 function AdvertsPage() {
-  const [filters, setFilters] = useState(getFilters); //TODO: ¿llevar los filters a redux?
-
-
+  const [filters, setFilters] = useState(getFilters);
   const dispatch = useDispatch();
 
-  
-  useEffect(() => {   
+  useEffect(() => {
     saveFilters(filters);
   }, [filters]);
 
-  
   useEffect(() => {
     dispatch(loadAdverts());
-  }, [dispatch]); 
+  }, [dispatch]);
 
+  const { adverts } = useLoadAdverts()
 
-  const useLoadAdverts = () => {    //TODO: llevar a /hooks o a /react-redux-hooks o rehacer la conexión a redux con 'connect'
-    const adverts = useSelector(loadAdvertsSelector);
-    return adverts;
-  };
-
-  const adverts = useLoadAdverts();
-
-
- const filteredAdverts = filterAdverts(adverts, filters);
+  const filteredAdverts = filterAdverts(adverts, filters);
   console.log("filters ", filters);
   console.log("adverts", adverts);
   console.log("filteredAdverts", filteredAdverts);
@@ -48,7 +37,6 @@ function AdvertsPage() {
     <Layout>
       {adverts.length > 0 && (
         <FiltersForm
-      
           initialFilters={filters}
           defaultFilters={defaultFilters}
           prices={adverts.map(({ price }) => price)}

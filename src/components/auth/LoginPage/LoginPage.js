@@ -5,8 +5,7 @@ import { connect } from "react-redux";
 import { authLogin, uiResetError } from "../../../store/actions";
 import { uiSelector } from "../../../store/selectors";
 
-//TODO: llevar las redirecciones a redux donde corresponda
-//TODO: cachear los tags con un nuevo selector
+//TODO: llevar las redirecciones a redux de AdvertPage y donde corresponda 
 //TODO: refactorizar hooks (si los hubiere) en carpeta 'hooks/redux'
 //TODO: limpieza y depuración final
 //TODO: README.md (corto)
