@@ -9,7 +9,7 @@ import EmptyList from "./EmptyList";
 import storage from "../../../utils/storage";
 import { defaultFilters, filterAdverts } from "./filters";
 import { loadAdverts } from "../../../store/actions";
-import useLoadAdverts  from "../../../hooks/react-redux/useLoadAdverts";
+import useLoadAdverts from "../../../hooks/react-redux/useLoadAdverts";
 
 const getFilters = () => storage.get("filters") || defaultFilters;
 const saveFilters = (filters) => storage.set("filters", filters);
@@ -26,7 +26,7 @@ function AdvertsPage() {
     dispatch(loadAdverts());
   }, [dispatch]);
 
-  const { adverts } = useLoadAdverts()
+  const { adverts, error, isLoading } = useLoadAdverts();
 
   const filteredAdverts = filterAdverts(adverts, filters);
   console.log("filters ", filters);
@@ -35,6 +35,9 @@ function AdvertsPage() {
 
   return (
     <Layout>
+      {isLoading && <p>Loading ... </p>}
+      {error && <div style={{ color: "red" }}>{error.message}</div>}
+
       {adverts.length > 0 && (
         <FiltersForm
           initialFilters={filters}

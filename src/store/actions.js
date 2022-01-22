@@ -157,7 +157,7 @@ export const loadAdvertFailure = (error) => {
 };
 
 export const loadAdvert = (advertId) => {
-  return async (dispatch, getState, { api }) => {
+  return async (dispatch, getState, { api, history }) => {
     const advert = loadAdvertSelector(getState(), advertId);
     if (advert) {
       return;
@@ -167,7 +167,13 @@ export const loadAdvert = (advertId) => {
       const advert = await api.adverts.getAdvert(advertId);
       dispatch(loadAdvertSuccess(advert));
     } catch (error) {
-      dispatch(loadAdvertFailure(error)); //OJO: "este caso de error puede ser importante de cara a la práctica"
+      dispatch(loadAdvertFailure(error));
+      if (error && error.statusCode === 401) {
+        history.push("/login");
+      }
+      if (error && error.statusCode === 404) {
+        history.push("/404");
+      }
     }
   };
 };
