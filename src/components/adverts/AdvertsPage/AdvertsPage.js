@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
 import Layout from "../../layout";
 import FiltersForm from "./FiltersForm";
 import AdvertsList from "./AdvertsList";
