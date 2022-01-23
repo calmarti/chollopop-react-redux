@@ -1,35 +1,63 @@
 # Nodepop-react-redux
-## Este proyecto crea la gestión global del estado en redux para una tienda on line creada con react
+
+## Este proyecto crea la gestión de un estado global en redux para una tienda on line implementada en react
+
 ---
-La gestión del estado en redux está realizada sobre el proyecto: 
+
+El proeyecto está implementado a partir del fron-end react:
+
 ```sh
 https://github.com/davidjj76/nodepop-react
 ```
+
 ---
-Requisitos
+
+## Requisitos
 
 Se asume la instalación previa de:
 
-* Node
+- Node
 
-* nodepop-api (simulador de backend): https://github.com/davidjj76/nodepop-api
+- nodepop-api (simulador de backend): https://github.com/davidjj76/nodepop-api
 
 ---
-## Funcionalidades
 
--Autenticar las credenciales de un usuario contra el backend
+## Estado global por defecto
 
--Recordar las credenciales para sesiones futuras
+```sh
+{
+  auth: false,
+  adverts: { loaded: false, data: [] },
+  ui: { isLoading: false, error: null },
+  tags: [],
+};
+```
 
--Crear anuncios de cinco campos (name, price, sale, tags, photo) que son persistidos en nodepop-api 
 
--Visualizar el listado de anuncios existentes 
+## Tests Unitarios
 
--Visualizar el detalle de un anuncio
+### Acciones:
 
--Buscar anuncios según los criterios: nombre, compra/venta, rango de precios y categorías (tags)
+- AuthLoginRequest (acción simple)
+- LoadAdvertSuccess (acción simple con payload)
+- AuthLogin (acción de tipo función)
 
--Borrar un anuncio (previa confirmación)
+### Selector:
 
--Cerrar la sesión (previa confirmación)
+- loadAdvertSelector
 
+### Reducer:
+
+- reducer de **state.adverts**
+
+### React-Testing-Library:
+
+- Componente LoginPage
+
+### Snapshot tests
+
+Componente LoginPage:
+
+- {isLoading: false, error: null }
+- {isLoading: true, error: null }
+- {isLoading: false, error: { object} }
