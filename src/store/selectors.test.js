@@ -29,4 +29,3 @@ describe("testing loadAdvertSelector", () => {
   });
 });
 
-//TODO: test de un thunk

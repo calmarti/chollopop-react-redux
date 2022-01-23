@@ -1,21 +1,15 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import Layout from "../../layout";
 import AdvertDetail from "./AdvertDetail";
-import { loadAdvertSelector, uiSelector } from "../../../store/selectors";
+import { loadAdvertSelector } from "../../../store/selectors";
 import { loadAdvert, deleteAdvert } from "../../../store/actions";
 import T from "prop-types";
 
-function AdvertPage({ advert, ui, getAdvert, handleDelete }) {
-  const { advertId } = useParams();
-  const { error, isLoading } = ui;
- 
-
+function AdvertPage({ advert, getAdvert, handleDelete }) {
   useEffect(() => {
     getAdvert();
   }, [getAdvert]);
-
 
   return (
     <Layout>
@@ -24,18 +18,15 @@ function AdvertPage({ advert, ui, getAdvert, handleDelete }) {
   );
 }
 
-
 AdvertPage.propTypes = {
-  ui: T.object.isRequired,        
+  ui: T.object.isRequired,
   getAdvert: T.func.isRequired,
   handleDelete: T.func.isRequired,
-}
-
+};
 
 const mapStateToProps = (state, ownProps) => {
   return {
     advert: loadAdvertSelector(state, ownProps.match.params.advertId),
-    ui: uiSelector(state),
   };
 };
 

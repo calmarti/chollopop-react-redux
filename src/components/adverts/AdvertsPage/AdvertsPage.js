@@ -27,9 +27,7 @@ function AdvertsPage() {
   const { adverts, error, isLoading } = useLoadAdverts();
 
   const filteredAdverts = filterAdverts(adverts, filters);
-  console.log("filters ", filters);
-  console.log("adverts", adverts);
-  console.log("filteredAdverts", filteredAdverts);
+
 
   return (
     <Layout>

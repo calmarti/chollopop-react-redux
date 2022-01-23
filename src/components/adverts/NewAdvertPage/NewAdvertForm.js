@@ -1,13 +1,10 @@
 import T from "prop-types";
 
 import useForm from "../../../hooks/useForm";
-import { InputFile } from "../../common";
 import SelectTags from "../SelectTags";
 import { connect } from "react-redux";
 import { createAdvert } from "../../../store/actions";
-
-//TODO: llevar a redux la llamada al api de tags (coponente SelectTags)
-
+import { InputFile } from "../../common";
 
 function NewAdvertForm({ onSubmit }) {
   const { formValue: advert, handleChange } = useForm({

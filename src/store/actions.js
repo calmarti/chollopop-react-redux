@@ -243,7 +243,6 @@ export const deleteAdvert = (advertId) => {
       const advertsMinusOne = deleteAdvertSelector(getState(), advertId);
       await api.adverts.deleteAdvert(advertId);
       dispatch(deleteAdvertSuccess(advertsMinusOne));
-      console.log("estado: ", getState().adverts);
       history.push("/");
     } catch (error) {
       dispatch(deleteAdvertFailure(error));

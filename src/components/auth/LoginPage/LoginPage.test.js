@@ -5,7 +5,7 @@ import { fireEvent, render } from "@testing-library/react";
 
 //Test del componente LoginPage con React-Testing-Library
 
-describe("Test of redux-connected LoginPage with React-Testing-Library", () => {
+describe("Test of LoginPage with React-Testing-Library", () => {
   test("should execute handleLogin", () => {
     const store = {
       getState: () => ({
@@ -21,11 +21,7 @@ describe("Test of redux-connected LoginPage with React-Testing-Library", () => {
     const onLogin = jest.fn();
     const renderObj = render(
       <Provider store={store}>
-        <LoginPage
-          isLoading={isLoading}
-          error={error}
-          onLogin={onLogin}
-        />
+        <LoginPage isLoading={isLoading} error={error} onLogin={onLogin} />
       </Provider>
     );
     const { getByLabelText, getByRole } = renderObj;
@@ -72,7 +68,7 @@ describe("LoginPage snapshot tests", () => {
     const snapshot_1 = renderer
       .create(
         <Provider store={store}>
-          <LoginPage onLogin={()=>{}} />
+          <LoginPage onLogin={() => {}} />
         </Provider>
       )
       .toJSON();
@@ -92,11 +88,11 @@ describe("LoginPage snapshot tests", () => {
     const snapshot_2 = renderer
       .create(
         <Provider store={store}>
-          <LoginPage onLogin={()=>{}}  />
+          <LoginPage onLogin={() => {}} />
         </Provider>
       )
       .toJSON();
-    // console.log(tree);
+
     expect(snapshot_2).toMatchSnapshot();
   });
 });
@@ -114,10 +110,10 @@ test("snapshot test with prop 'isLoading' equal to false, prop 'error' different
   const snapshot_3 = renderer
     .create(
       <Provider store={store}>
-        <LoginPage onLogin={()=>{}} />
+        <LoginPage onLogin={() => {}} />
       </Provider>
     )
     .toJSON();
-  // console.log(tree);
+
   expect(snapshot_3).toMatchSnapshot();
 });

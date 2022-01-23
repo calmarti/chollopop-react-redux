@@ -26,6 +26,3 @@ export const UI_RESET_ERROR = "UI_RESET_ERROR";
 
 export const LOAD_TAGS_SUCCESS = "LOAD_TAGS_SUCCESS";
 export const LOAD_TAGS_FAILURE = "LOAD_TAGS_FAILUIRE";
-
-// export const AUTH_LOGIN = "AUTH_LOGIN";
-// export const AUTH_LOGOUT = "AUTH_LOGOUT";

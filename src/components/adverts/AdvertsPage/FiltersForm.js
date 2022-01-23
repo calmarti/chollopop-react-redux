@@ -12,7 +12,7 @@ function FiltersForm({ initialFilters, defaultFilters, prices, onFilter }) {
     setFormValue,
     handleChange,
     } = useForm(initialFilters);
-  console.log("filters from form ", filters);
+
 
   const handleResetClick = () => {
     setFormValue(defaultFilters);

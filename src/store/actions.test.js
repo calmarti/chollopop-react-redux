@@ -79,4 +79,4 @@ describe("testing loadAdvertsSuccess action creator", () => {
   });
 });
 
-//TODO: hacer el test de la acción-función loadAdvert modelado en el de authLogin
+
