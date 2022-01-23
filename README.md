@@ -4,7 +4,7 @@
 
 ---
 
-El proeyecto está implementado a partir del fron-end react:
+El proyecto está desarrollado a partir del fron-end react:
 
 ```sh
 https://github.com/davidjj76/nodepop-react
@@ -30,7 +30,7 @@ Se asume la instalación previa de:
   adverts: { loaded: false, data: [] },
   ui: { isLoading: false, error: null },
   tags: [],
-};
+}
 ```
 
 
