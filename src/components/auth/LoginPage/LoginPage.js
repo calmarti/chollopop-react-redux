@@ -5,10 +5,6 @@ import { connect } from "react-redux";
 import { authLogin, uiResetError } from "../../../store/actions";
 import { uiSelector } from "../../../store/selectors";
 
-//TODO: limpieza y depuración final
-//TODO: README.md (corto)
-//TODO: parte opcional: componente Input
-
 
 export function LoginPage({ onLogin, isLoading, error, resetError }) {
   return (
