@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Redirect, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import Layout from "../../layout";
 import AdvertDetail from "./AdvertDetail";
@@ -16,13 +16,6 @@ function AdvertPage({ advert, ui, getAdvert, handleDelete }) {
     getAdvert();
   }, [getAdvert]);
 
-  if (error?.statusCode === 401) {
-    return <Redirect to="/login" />;
-  }
-
-  if (error?.statusCode === 404) {
-    return <Redirect to="/404" />;
-  }
 
   return (
     <Layout>

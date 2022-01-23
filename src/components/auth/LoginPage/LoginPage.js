@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { authLogin, uiResetError } from "../../../store/actions";
 import { uiSelector } from "../../../store/selectors";
 
-//TODO: llevar las redirecciones a redux de AdvertPage y donde corresponda 
 //TODO: limpieza y depuración final
 //TODO: README.md (corto)
 //TODO: parte opcional: componente Input
