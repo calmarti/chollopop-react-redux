@@ -1,4 +1,4 @@
-# Nodepop-react-redux
+# chollopop-react-redux
 
 ## Este proyecto crea la gestión de un estado global en redux para una tienda on line implementada en react
 
