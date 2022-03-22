@@ -22,7 +22,17 @@ Se asume la instalación previa de:
 
 ---
 
-## Estado global por defecto
+## Ejecución en entorno local 
+
+`npm start`
+
+## Ejecución del backend
+
+- Clonar el repositorio `https://github.com/davidjj76/nodepop-react`
+- `npm start`
+- El backend se ejecuta por defecto en el puerto 3001.
+
+## Estado global por defecto de la app
 
 ```sh
 {
